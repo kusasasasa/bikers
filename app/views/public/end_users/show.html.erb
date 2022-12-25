@@ -1,0 +1,9 @@
+<h1>マイページ</h1>
+<%=@end_user.id%>
+<%=@end_user.nickname%>
+<%=@end_user.bike_type%>
+<%= image_tag @end_user.profile_image.url, size: "100x100" %>
+<%=@end_user.age%>
+<%=@end_user.email%>
+<%= link_to "会員情報編集へ", edit_public_end_user_path %>
+<%= link_to "自分の投稿へ", public_end_users_path %>

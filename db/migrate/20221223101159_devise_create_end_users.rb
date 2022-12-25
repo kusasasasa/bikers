@@ -7,7 +7,6 @@ class DeviseCreateEndUsers < ActiveRecord::Migration[6.1]
       t.string  :email,                null: false, default: ""
       t.string :encrypted_password,   null: false, default: ""
       t.string :nickname,             null: false
-      t.string :profile_img,          null: false
       t.integer :age,              null: false
       t.boolean:is_deleted,        null: false, default: false
       t.string :bike_type,          null: false

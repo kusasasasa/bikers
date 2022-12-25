@@ -5,7 +5,7 @@
     <%= f.label :nickname, "ユーザー名" %><br />
     <%= f.text_field :nickname,  size: 20, autofocus: true, autocomplete: "nickname" %>
   </div>
-  
+  <%= f.hidden_field :profile_img, :value => "no_image.jpg" %>
 
   <div class="field">
     <%= f.label :password %><br />

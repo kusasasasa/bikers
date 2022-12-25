@@ -1,1 +1,7 @@
 <h1>投稿一覧です</h1>
+<%@posts.each do |post|%>
+<%= image_tag post.end_user.profile_image.url, size: "100x100" %>
+<%=post.end_user.nickname%>
+<%=post.destination%>
+ <%= link_to "表示", public_post_path(post.id) %>
+<%end%>

@@ -1,0 +1,8 @@
+<h1>投稿編集</h1>
+<%= form_with(model: @post, url:  public_post_path(@post.id),local:true,method: :patch) do |f| %>
+    <%= f.text_field :destination%>
+    <%= f.text_field :body%>
+    <%= f.text_field :address%>
+    <%= f.file_field :img_urls, accept: "image/*" ,multiple: true%>
+    <%= f.submit '変更を保存',class: 'btn-success' %>
+<%end%>

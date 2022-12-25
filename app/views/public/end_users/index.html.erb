@@ -1,0 +1,8 @@
+<h1>自分の投稿一覧</h1>
+<%@end_user.posts.each do |end_user| %>
+    <%= image_tag end_user.img_url.url, size: "100x100"%>
+    <%=end_user.destination%>
+    <%=@end_user_age%>代
+    <%= link_to "表示", public_post_path(end_user.id) %>
+    
+<%end%>
