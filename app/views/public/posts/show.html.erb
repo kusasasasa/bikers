@@ -1,5 +1,4 @@
 <h1>投稿詳細</h1>
-<%= image_tag @post.img_url.url, size: "100x100" %>
 <%=@post.end_user.nickname%>
 <%=@post.destination%>
 <%=@post.body%>
@@ -8,6 +7,8 @@
 <%= image_tag img_url, size: "100x100" %>
 <%end%>
 <%=@age%>代
-<%if @post.end_user_id==current_end_user.id%>
-    <%= link_to "投稿を編集", edit_public_post_path(@post.id) %>
+<% if end_user_signed_in? %>
+    <%if @post.end_user_id==current_end_user.id%>
+        <%= link_to "投稿を編集", edit_public_post_path(@post.id) %>
+    <%end%>
 <%end%>

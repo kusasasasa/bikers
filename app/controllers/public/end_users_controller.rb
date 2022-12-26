@@ -1,4 +1,5 @@
 class Public::EndUsersController < ApplicationController
+
     def index
         @end_user=current_end_user
         @posts=Post.all
@@ -14,11 +15,13 @@ class Public::EndUsersController < ApplicationController
         @end_user=current_end_user
     end
     def update
-        end_user=current_end_user
-        if end_user.update(end_users_params)
-            redirect_to public_end_user_path(end_user.id)  
+        @end_user=EndUser.find(current_end_user.id)
+        
+        if @end_user.update(end_users_params)
+            redirect_to public_end_user_path(@end_user.id)  
         else
-            render :edit
+         
+            render:edit
         end
     end
     

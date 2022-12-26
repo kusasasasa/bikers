@@ -7,5 +7,8 @@ class EndUser < ApplicationRecord
   has_many:favorites
   has_one_attached :profile_image
   mount_uploader :profile_image, ProfileImageUploader
+  validates :nickname, presence: true
+  validates :email, presence: true
+  
 
 end

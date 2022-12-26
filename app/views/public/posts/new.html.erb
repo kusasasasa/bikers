@@ -1,10 +1,17 @@
 <h1>新規投稿画面</h1>
+<% if @post.errors.any? %>
+  <%= @post.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 <%= form_with model: @post, url:  public_posts_path do |f| %>
 <%= f.text_field :destination%>
 <%= f.text_field :body%>
 <%= f.text_field :address%>
-<%= f.file_field :img_url, accept: "image/*" %>
 <%= f.file_field :img_urls, accept: "image/*" ,multiple: true%>
-<%= f.hidden_field :end_user_id, :value => @end_user.id %>
+
 <%= f.submit '編集を保存',class: 'btn-success' %>
 <% end %>

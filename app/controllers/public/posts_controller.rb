@@ -16,9 +16,11 @@ class Public::PostsController < ApplicationController
     end
     
     def create
-        post= Post.new(post_params)
-        if post.save
+        @post= Post.new(post_params)
+        @post.end_user_id=current_end_user.id
+        if @post.save
     # 4. トップ画面へリダイレクト
+           
             redirect_to public_end_users_path
         else
             render :new
@@ -30,9 +32,9 @@ class Public::PostsController < ApplicationController
     end
     
     def update
-        post=Post.find(params[:id])
-        if post.update(post_params)
-            redirect_to public_post_path(post.id)  
+        @post=Post.find(params[:id])
+        if @post.update(post_params)
+            redirect_to public_post_path(@post.id)  
         else
             render :edit
         end

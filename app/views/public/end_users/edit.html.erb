@@ -1,3 +1,13 @@
+
+
+<% if @end_user.errors.any? %>
+  <%= @end_user.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @end_user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 <h1><%=@end_user.nickname%>さんの会員編集画面</h1>
 <%= form_with(model: @end_user, url:  public_end_user_path(@end_user.id),local:true,method: :patch) do |f| %>
     <p>ニックネイム</p>
