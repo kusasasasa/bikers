@@ -8,7 +8,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
   }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'public/end_users#index'
+  root 'public/posts#index'
   namespace :admin do
     resources :homes, only: [:index]
     resources :end_users, only: [:show, :edit, :update, :unsubscribe, :withdrow]
