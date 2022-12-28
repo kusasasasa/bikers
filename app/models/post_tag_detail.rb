@@ -1,4 +1,6 @@
 class PostTagDetail < ApplicationRecord
-    belongs_to:post
-    belongs_to:end_user
+    belongs_to :post
+    belongs_to :tag
+    validates :post_id, presence: true
+    validates :tag_id, presence: true
 end

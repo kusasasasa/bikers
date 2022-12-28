@@ -5,6 +5,7 @@ class Public::PostsController < ApplicationController
     end
     
     def index
+        @tag_list = Tag.all
         @posts=Post.all
         @end_users=EndUser.all
     end
@@ -13,14 +14,18 @@ class Public::PostsController < ApplicationController
         @post=Post.find(params[:id])
         @end_users=EndUser.all
         @age=@post.end_user.age.truncate(-1)
+        @post_tags = @post.tags
+        
     end
+    
     
     def create
         @post= Post.new(post_params)
         @post.end_user_id=current_end_user.id
+        tag_list = params[:post][:name].split(nil) 
         if @post.save
     # 4. トップ画面へリダイレクト
-           
+            @post.save_tag(tag_list)  
             redirect_to public_end_users_path
         else
             render :new
@@ -44,4 +49,6 @@ class Public::PostsController < ApplicationController
     def post_params
         params.require(:post).permit(:end_user_id, :destination, :body, :img_url, :address, img_urls: [])
     end
+    
+    
 end

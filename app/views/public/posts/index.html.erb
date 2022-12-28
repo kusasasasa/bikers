@@ -1,7 +1,7 @@
 <h1>投稿一覧です</h1>
 <%@posts.each do |post|%>
 <%if post.end_user.profile_image.present? %>
-    <%= image_tag post.end_user.profile_image.url, size: "100x100" %>
+    <%= image_tag post.end_user.profile_image, size: "100x100" %>
 <%else%>
         <%= image_tag 'no_image', size: "100x100" %>
 <%end%>

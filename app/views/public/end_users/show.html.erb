@@ -3,11 +3,11 @@
 <%=@end_user.nickname%>
 <%=@end_user.bike_type%>
 <%if @end_user.profile_image.present? %>
-    <%= image_tag @end_user.profile_image.url, size: "100x100" %>
+    <%= image_tag @end_user.profile_image, size: "100x100" %>
 <%else%>
         <%= image_tag 'no_image', size: "100x100" %>
 <%end%>
-<%=@end_user.age%>
+<%=@end_user.age%><%="歳"%>
 <%=@end_user.email%>
 <%= link_to "会員情報編集へ", edit_public_end_user_path %>
 <%= link_to "自分の投稿へ", public_end_users_path %>

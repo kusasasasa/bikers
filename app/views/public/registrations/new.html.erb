@@ -34,13 +34,27 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
   <div class="field">
-    <%= f.label :profile_image%>
-    <%= f.file_field :profile_image %>
-  </div>
+    <div id="preview"></div>
+    <!-- file_fieldを追加で表示させるために、divタグを追加 -->
+    <div class="file-upload">
+      <%= f.file_field :img_urls, accept: "image/*", multiple: true, onchange: 'loadImage(this);'%>
+      
+    </div>
+    <%= f.submit 'sign_up',class: 'btn-success' %>
+  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+<script>
+function loadImage(obj)
+{
+	document.getElementById('preview').innerHTML = '<p class="my-2">プレビュー</p>';
+	for (i = 0; i < obj.files.length; i++) {
+		var fileReader = new FileReader();
+		fileReader.onload = (function (e) {
+			document.getElementById('preview').innerHTML += '<img class="img-fluid mb-2" src="' + e.target.result + '">';
+		});
+		fileReader.readAsDataURL(obj.files[i]);
+	}
+}
+</script>
 
 <%= render "public/shared/links" %>

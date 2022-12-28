@@ -3,10 +3,9 @@ class EndUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many:posts
-  has_many:favorites
+  has_many:posts, dependent: :destroy
+  has_many:favorites, dependent: :destroy
   has_one_attached :profile_image
-  mount_uploader :profile_image, ProfileImageUploader
   validates :nickname, presence: true
   validates :email, presence: true
   

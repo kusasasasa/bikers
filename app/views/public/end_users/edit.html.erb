@@ -15,8 +15,24 @@
     <p>メールアドレス</p>
     <%= f.text_field :email%>
     <p>プロフィール画像</p>
-    <%= f.file_field :profile_image, accept: "image/*" %>
-   
-    <%= f.submit '変更を保存',class: 'btn-success' %>
-    
-<%end%>
+    <div id="preview"></div>
+    <!-- file_fieldを追加で表示させるために、divタグを追加 -->
+    <div class="file-upload">
+      <%= f.file_field :profile_image, accept: "image/*", onchange: 'loadImage(this);'%>
+      
+    </div>
+    <%= f.submit '編集を保存',class: 'btn-success' %>
+  <% end %>
+  <script>
+function loadImage(obj)
+{
+	document.getElementById('preview').innerHTML = '<p class="my-2">プレビュー</p>';
+	for (i = 0; i < obj.files.length; i++) {
+		var fileReader = new FileReader();
+		fileReader.onload = (function (e) {
+			document.getElementById('preview').innerHTML += '<img class="img-fluid mb-2" src="' + e.target.result + '">';
+		});
+		fileReader.readAsDataURL(obj.files[i]);
+	}
+}
+</script>

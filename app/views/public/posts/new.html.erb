@@ -10,10 +10,13 @@
       <% end %>
     </ul>
   <% end %>
+  
   <%= form_with model: @post, url:  public_posts_path do |f| %>
     <%= f.text_field :destination%>
     <%= f.text_field :body%>
     <%= f.text_field :address%>
+    <%="タグ"%>
+    <%= f.text_field :name%>
     
     <div id="preview"></div>
     <!-- file_fieldを追加で表示させるために、divタグを追加 -->
@@ -37,3 +40,8 @@ function loadImage(obj)
 	}
 }
 </script>
+<% if @tag_list.present?%>
+  <% @tag_list.each do |list| %>
+      <%=link_to list.tag_name, tag_posts_path(post_tag_id: list.id)%>
+  <%end%>
+<%end%>
