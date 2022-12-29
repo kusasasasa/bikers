@@ -44,13 +44,23 @@ class Public::PostsController < ApplicationController
     
     def edit
         @post=Post.find(params[:id])
+        # pluckはmapと同じ意味です！！
+        @tag_list=@post.tags.pluck(:name).join(nil)
     end
     
     def update
         @post=Post.find(params[:id])
+        tag_list=params[:post][:name].split(nil)
         if @post.update(post_params)
-            redirect_to public_post_path(@post.id)  
-        else
+        # わからん
+            @old_relations=PostTagDetail.where(post_id: @post.id)
+       
+            @old_relations.each do |relation|
+                relation.delete
+            end 
+            @post.save_tag(tag_list)
+            redirect_to public_post_path(@post.id), notice: '更新完了しました:)'
+        else 
             render :edit
         end
     end
