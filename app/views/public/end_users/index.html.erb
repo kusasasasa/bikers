@@ -1,5 +1,10 @@
+<% if @tags.present?%>
+<%@tags.each do|tag|%>
+<i class="fas fa-tag"></i>
+<%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
+<%end%>
+<%end%>
 <h1>自分の投稿一覧</h1>
-
 <%@end_user.posts.each do |end_user| %>
     <%if end_user.img_urls[0].present? %>
         <%= image_tag end_user.img_urls[0], size: "100x100" %>

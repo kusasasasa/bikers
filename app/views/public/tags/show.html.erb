@@ -1,16 +1,18 @@
-<h1>投稿一覧です</h1>
-<%@tag_list.each do |list|%>
-<span>
-   <%= link_to list.name, public_tag_path(list.id)%><%="(#{list.posts.count})"%>
-</span>
+<% if @tags.present?%>
+<%@tags.each do|tag|%>
+<i class="fas fa-tag"></i>
+<%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
 <%end%>
-<%@posts.each do |post|%>
+<%end%>
+<h1><%=@tag.name%>タグ</h1>
+<%@tag.posts.each do |post|%>
 <%if post.end_user.profile_image.present? %>
     <%= image_tag post.end_user.profile_image, size: "100x100" %>
 <%else%>
         <%= image_tag 'no_image', size: "100x100" %>
 <%end%>
 <%=post.end_user.nickname%>
+<%=post.address%>
 <%=post.id%>
 <%=post.destination%>
 <%= link_to "表示", public_post_path(post.id) %>

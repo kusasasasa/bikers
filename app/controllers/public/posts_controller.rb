@@ -2,9 +2,11 @@ class Public::PostsController < ApplicationController
     def new
         @post=Post.new
         @end_user=current_end_user
+        @tags=Tag.all
     end
     
     def index
+        
         @tag_list = Tag.all
         @posts=Post.all
         @end_users=EndUser.all
@@ -12,9 +14,17 @@ class Public::PostsController < ApplicationController
     
     def show
         @post=Post.find(params[:id])
+        @posts = Post.page(params[:page]).per(10)
         @end_users=EndUser.all
         @age=@post.end_user.age.truncate(-1)
         @post_tags = @post.tags
+        @tags=Tag.all
+        
+    end
+    
+    def search
+        @tag_list = Tag.all  #こっちの投稿一覧表示ページでも全てのタグを表示するために、タグを全取得
+        @post = params[:id]  #クリックしたタグを取得
         
     end
     

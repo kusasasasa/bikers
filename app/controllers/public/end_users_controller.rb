@@ -5,6 +5,7 @@ class Public::EndUsersController < ApplicationController
             @posts=Post.all
             #年齢を取得し、1の位の値を切り捨てる
             @end_user_age=@end_user.age.truncate(-1)
+            @tags=Tag.all
     end
     def show
         #ログイン中のユーザーの値を取得

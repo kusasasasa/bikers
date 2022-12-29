@@ -19,7 +19,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   namespace :public do
     resources :end_users, only: [:index, :show, :edit, :update]
     resources :posts, only: [:new, :index, :show, :edit, :update, :destroy, :destroy_all, :create]
-    resource :tags, only: [:destroy, :create]
+      
+    resources :tags, only: [:show, :destroy, :create] do
+      get 'posts', to: 'posts#search'
+    end
     resources :comments, only: [:index, :destroy, :create]
     resource :favorites, only: [:create, :destroy]
   end
