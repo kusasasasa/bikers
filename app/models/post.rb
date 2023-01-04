@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
     belongs_to:end_user
-    has_many:comments
-    has_many:favorites
-    has_many:post_tag_details, dependent: :destroy
+    has_many:comments, dependent: :destroy
+    has_many:favorites, dependent: :destroy
+    has_many:post_tag_details,dependent: :destroy
     has_many :tags, through: :post_tag_details
     # mount_uploader :img_url, ImgUrlUploader
     has_many_attached :img_urls
@@ -22,8 +22,15 @@ class Post < ApplicationRecord
         end
     end
     
-    def favorited_by?(user)
-      favorites.exists?(user_id: user.id)
-    end
+   def self.search(search) #self.はUser.を意味する
+       if search
+         where(['destination LIKE ?', "%#{search}%"]) #検索とuseanameの部分一致を表示。
+       else
+         all #全て表示させる
+       end
+   end
+   def favorited_by?(enduser)
+        favorites.exists?(end_user_id: end_user.id)
+   end
   
 end

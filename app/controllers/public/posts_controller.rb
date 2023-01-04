@@ -8,7 +8,7 @@ class Public::PostsController < ApplicationController
     def index
         
         @tag_list = Tag.all
-        @posts=Post.all
+        @posts=Post.all.search(params[:search])
         @end_users=EndUser.all
     end
     
@@ -47,14 +47,13 @@ class Public::PostsController < ApplicationController
         # pluckはmapと同じ意味です！！
         @tag_list=@post.tags.pluck(:name).join(nil)
     end
-    
+  
     def update
         @post=Post.find(params[:id])
         tag_list=params[:post][:name].split(nil)
         if @post.update(post_params)
         # わからん
-            @old_relations=PostTagDetail.where(post_id: @post.id)
-       
+            @old_relations=PostTagDetail.where(post_id: @post)
             @old_relations.each do |relation|
                 relation.delete
             end 
@@ -65,6 +64,9 @@ class Public::PostsController < ApplicationController
         end
     end
     
+    def favorite
+      @posts=Post.all
+    end
     private
     def post_params
         params.require(:post).permit(:end_user_id, :destination, :body, :img_url, :address, img_urls: [])

@@ -21,10 +21,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     resources :posts, only: [:new, :index, :show, :edit, :update, :destroy, :destroy_all, :create] do
       resource :favorites, only: [:create, :destroy]
     end
-      
-    resources :tags, only: [:show, :destroy, :create] do
-      get 'posts', to: 'posts#search'
-    end
+    get 'posts_sarch', to: 'posts#search', as: 'post_search'
+    get 'posts_favorite', to: 'posts#favorite'
+    
+    resources :tags, only: [:show, :destroy, :create]
     resources :comments, only: [:index, :destroy, :create]
     
   end
