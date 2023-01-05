@@ -1,5 +1,5 @@
 <% if @tags.present?%>
-<%@tags.each do|tag|%>
+<%@tags.slice(-20, 20).each do|tag|%>
 <i class="fas fa-tag"></i>
 <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
 <%end%>

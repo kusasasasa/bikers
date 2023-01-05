@@ -2,10 +2,11 @@
  <%= text_field_tag :search %> 
 <%= submit_tag "Search" ,:destination => nil ,class: "button is-info"%> 
 <% end %> 
-
+<%= link_to "タグ検索へ", public_tags_path%>
 <h1>投稿一覧です</h1>
-<%@tag_list.each do |list|%>
+<%@tag_list.slice(-20, 20).each do |list|%>
 <span>
+   <i class="fas fa-tag"></i>
    <%= link_to list.name, public_tag_path(list.id)%><%="(#{list.posts.count})"%>
 </span>
 <%end%>

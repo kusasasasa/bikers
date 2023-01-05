@@ -4,4 +4,7 @@ class Public::TagsController < ApplicationController
         @posts=Post.all
         @tags=Tag.all
     end
+    def index
+        @tags=Tag.all.search(params[:search])
+    end
 end

@@ -29,7 +29,7 @@ class Post < ApplicationRecord
          all #全て表示させる
        end
    end
-   def favorited_by?(enduser)
+   def favorited_by?(end_user)
         favorites.exists?(end_user_id: end_user.id)
    end
   

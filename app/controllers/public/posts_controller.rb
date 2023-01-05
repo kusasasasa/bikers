@@ -19,6 +19,7 @@ class Public::PostsController < ApplicationController
         @age=@post.end_user.age.truncate(-1)
         @post_tags = @post.tags
         @tags=Tag.all
+        @comment =Comment.new
         
     end
     

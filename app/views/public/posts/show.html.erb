@@ -1,5 +1,5 @@
 <% if @tags.present?%>
-    <%@tags.each do|tag|%>
+    <%@tags.slice(-20, 20) .each do|tag|%>
         <i class="fas fa-tag"></i>
         <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
     <%end%>
@@ -13,25 +13,32 @@
 <%= image_tag img_url, size: "100x100" %>
 <%end%>
 <%=@age%>代
+<% if @post.tags.present?%>
+  <%@post.tags.each do|tag|%>
+    <i class="fas fa-tag"></i>
+    <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
+  <%end%>
+<%end%>
 <% if end_user_signed_in? %>
     <%if @post.end_user_id==current_end_user.id%>
         <%= link_to "投稿を編集", edit_public_post_path(@post.id) %>
     <%end%>
 <%end%>
-<% if @post.favorited_by?(current_end_user) %>
-    <p>
-      <%= link_to public_post_favorites_path(@post), method: :delete do %>
-        ♥<%= @post.favorites.count %> いいね
-      <% end %>
-    </p>
-    <p>
-      <%= link_to public_post_favorites_path(@post), method: :post do %>
-        ♡<%= @post.favorites.count %> いいね
-      <% end %>
-    </p>
+<% if end_user_signed_in? %>
+  <% if @post.favorited_by?(current_end_user) %>
+      <p>
+        <%= link_to public_post_favorites_path(@post), method: :delete do %>
+          ♥<%= @post.favorites.count %> いいね
+        <% end %>
+      </p>
+  <%else%>
+      <p>
+        <%= link_to public_post_favorites_path(@post), method: :post do %>
+          ♡<%= @post.favorites.count %> いいね
+        <% end %>
+      </p>
+  <%end%>
 <%end%>
-
-
 
 
 
