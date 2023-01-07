@@ -38,6 +38,39 @@
         <% end %>
       </p>
   <%end%>
+
+  <div>
+    <p>コメント件数：<%= @post.comments.count %></p>
+    <% @post.comments.each do |comment| %>
+      <%if comment.end_user.profile_image.present? %>
+        <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
+      <%else%>
+        <%= image_tag 'no_image', size: "100x100" %>
+      <%end%>
+      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+      <%= comment.end_user.nickname %>
+      <% if comment.end_user.id== current_end_user.id %>
+        <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
+      <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+  </div>
+<%else%>
+  <p>コメント件数：<%= @post.comments.count %></p>
+    <% @post.comments.each do |comment| %>
+      <%if comment.end_user.profile_image.present? %>
+        <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
+      <%else%>
+        <%= image_tag 'no_image', size: "100x100" %>
+      <%end%>
+      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+      <%= comment.end_user.nickname %>
+    <%end%>
 <%end%>
 
 

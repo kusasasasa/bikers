@@ -1,5 +1,8 @@
 class Public::FavoritesController < ApplicationController
-    
+    def index
+        @favorite=current_end_user.favorites
+        @posts=Post.all
+    end
     def create
         post = Post.find(params[:post_id])
         favorite = current_end_user.favorites.new(post_id: post.id)
@@ -12,4 +15,5 @@ class Public::FavoritesController < ApplicationController
         favorite.destroy
         redirect_to public_post_path(post)
     end
+    
 end

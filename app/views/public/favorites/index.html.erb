@@ -1,0 +1,10 @@
+<h1>お気に入り一覧</h1>
+<%@favorite.each do|favorite|%>
+    <%=link_to favorite.post.destination, public_post_path(favorite.post.id)%>
+    <%=favorite.post.end_user_id%>
+    <%if favorite.post.img_urls.present?%>
+        <%= image_tag favorite.post.img_urls[0], size: "100x100" %>
+    <%else%>
+        <%= image_tag 'no_image', size: "100x100" %>
+    <%end%>
+<%end%>

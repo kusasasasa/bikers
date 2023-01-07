@@ -3,7 +3,9 @@
  <%= text_field_tag :search %> 
 <%= submit_tag "Search" ,:name => nil ,class: "button is-info"%> 
 <% end %> 
-<%@tags.each do |tag|%>
-    <i class="fas fa-tag"></i>
-   <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
+<%if @tags.present?%>
+    <%@tags.each do |tag|%>
+        <i class="fas fa-tag"></i>
+       <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
+    <%end%>
 <%end%>

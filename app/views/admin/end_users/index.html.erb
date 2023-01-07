@@ -1,0 +1,13 @@
+<h1>ユーザー一覧管理者用</h1>
+<%@end_users.each do |end_user|%>
+    <%=end_user.id%>
+    <%=end_user.nickname%>
+    <%=end_user.age%>
+    <%=end_user.bike_type%>
+    <%if end_user.profile_image.present? %>
+            <%= image_tag end_user.profile_image, size: "100x100" %>
+    <%else%>
+            <%= image_tag 'no_image', size: "100x100" %>
+    <%end%>
+    <%= link_to "表示", admin_end_user_path(end_user.id) %>
+<%end%>

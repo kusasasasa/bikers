@@ -1,0 +1,11 @@
+<h1>管理用ユーザー詳細</h1>
+<%=@end_user.id%>
+<%=@end_user.nickname%>
+<%=@end_user.age%>
+<%=@end_user.bike_type%>
+<%if @end_user.profile_image.present? %>
+    <%= image_tag @end_user.profile_image, size: "100x100" %>
+<%else%>
+    <%= image_tag 'no_image', size: "100x100" %>
+<%end%>
+<%= link_to "編集画面へ", edit_admin_end_user_path(@end_user.id) %>

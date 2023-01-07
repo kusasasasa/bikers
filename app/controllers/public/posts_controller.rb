@@ -20,6 +20,7 @@ class Public::PostsController < ApplicationController
         @post_tags = @post.tags
         @tags=Tag.all
         @comment =Comment.new
+        @comments=@post.comments
         
     end
     
