@@ -12,8 +12,6 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   namespace :admin do
     resources :homes, only: [:index]
     resources :end_users, only: [:index, :show, :edit, :update]
-    get 'unsubscribe'=> 'end_users#unsubscribe'
-    patch 'withdrow'=>'end_users#withdrow'
     resources :posts, only: [:index, :show, :edit, :destroy, :destroy_all]do
       resources :comments, only: [:destroy]
     end
@@ -21,6 +19,8 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   
   namespace :public do
     resources :end_users, only: [:index, :show, :edit, :update]
+    get 'unsubscribe'=> 'end_users#unsubscribe'
+    patch 'withdrow'=>'end_users#withdrow'
     resources :posts, only: [:new, :index, :show, :edit, :update, :destroy, :destroy_all, :create] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]

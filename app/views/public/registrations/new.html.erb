@@ -37,7 +37,7 @@
     <div id="preview"></div>
     <!-- file_fieldを追加で表示させるために、divタグを追加 -->
     <div class="file-upload">
-      <%= f.file_field :img_urls, accept: "image/*", multiple: true, onchange: 'loadImage(this);'%>
+      <%= f.file_field :profile_image, accept: "image/*", onchange: 'loadImage(this);'%>
       
     </div>
     <%= f.submit 'sign_up',class: 'btn-success' %>
