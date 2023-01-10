@@ -1,0 +1,10 @@
+<h1>タグ詳細</h1>
+<%@tag.posts.each do |tag_post|%>
+<%=tag_post.destination%>
+<%if tag_post.img_urls.present?%>
+<%tag_post.img_urls.each do |img|%>
+<%= image_tag img, size: "100x100" %>
+<%end%>
+<%end%>
+   
+<%end%>

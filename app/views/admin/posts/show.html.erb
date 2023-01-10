@@ -1,0 +1,28 @@
+<h1>投稿詳細</h1>
+<h1>投稿詳細</h1>
+<%=@post.end_user.nickname%>
+<%=@post.destination%>
+<%=@post.body%>
+<%=@post.address%>
+<%@post.img_urls.each do |img_url|%>
+<%= image_tag img_url, size: "100x100" %>
+<%end%>
+<%=@age%>代
+<% if @post.tags.present?%>
+  <%@post.tags.each do|tag|%>
+    <i class="fas fa-tag"></i>
+    <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
+  <%end%>
+<%end%>
+<p>コメント件数：<%= @post.comments.count %></p>
+    <% @post.comments.each do |comment| %>
+      <%if comment.end_user.profile_image.present? %>
+        <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
+      <%else%>
+        <%= image_tag 'no_image', size: "100x100" %>
+      <%end%>
+      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+      <%= comment.end_user.nickname %>
+      <%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete %>
+  
+    <% end %>
