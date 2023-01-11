@@ -8,7 +8,7 @@ class Public::PostsController < ApplicationController
     def index
         
         @tag_list = Tag.all
-        @posts=Post.all.search(params[:search])
+        @posts=Post.all.search(params[:search]).page(params[:page]).per(10)
         @end_users=EndUser.all
     end
     

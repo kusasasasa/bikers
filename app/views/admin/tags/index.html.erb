@@ -1,6 +1,8 @@
 <h1>タグ一覧</h1>
 <%@tags.each do|tag|%>
+
 <i class="fas fa-tag"></i>
 <%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
 <%=link_to "削除", admin_tag_path(tag.id), method: :delete%>
+
 <%end%>

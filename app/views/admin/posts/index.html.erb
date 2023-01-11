@@ -1,13 +1,29 @@
-<h1>投稿一覧</h1>
-<%@posts.each do |post|%>
-<%if post.end_user.profile_image.present? %>
-    <%= image_tag post.end_user.profile_image, size: "100x100" %>
-<%else%>
-        <%= image_tag 'no_image', size: "100x100" %>
-<%end%>
-<%=post.end_user.nickname%>
-<%=post.id%>
-<%=post.destination%>
-<%= link_to "表示",  admin_post_path(post.id) %>
-<%= link_to "削除",  admin_post_path(post.id), method: :delete %>
-<%end%>
+
+<div class="container">
+     <h1 style="margin:20px">投稿一覧</h1>
+    <div class="row"> 
+        <div class="col-md-11">
+            <%@posts.each do |post|%>
+            <table class="table table-striped">
+                <p class="border">
+                    <tbody>
+                            <tr>
+                                    <%if post.end_user.profile_image.present? %>
+                                        <td><div class="mx-auto" style="width: 100px;"><%= image_tag post.end_user.profile_image, size: "100x100" %></div></td>
+                                    <%else%>
+                                        <td><div class="mx-auto" style="width: 100px;"><%= image_tag 'no_image', size: "100x100" %></div></td>
+                                    <%end%>
+                                    <td><div class="mx-auto" style="width: 100px;"><%=post.end_user.nickname%></div></td>
+                                    <td><div class="mx-auto" style="width: 100px;"><%=post.id%></div></td>
+                                    <td><div class="mx-auto" style="width: 100px;"><%=post.destination%></div></td>
+                                    <td><div class="mx-auto" style="width: 100px;"><%= link_to "表示",  admin_post_path(post.id) %></div></td>
+                                    <td><div class="mx-auto" style="width: 100px;"><%= link_to "削除",  admin_post_path(post.id),method: :delete %></div></td>
+                            </tr>
+                    </tbody>
+                </p>
+            </table>
+            <%end%>
+            <%= paginate @posts%>
+        </div>
+    </div>
+</div>
