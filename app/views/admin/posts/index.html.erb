@@ -3,26 +3,38 @@
      <h1 style="margin:20px">投稿一覧</h1>
     <div class="row"> 
         <div class="col-md-11">
-            <%@posts.each do |post|%>
-            <table class="table table-striped">
+            <table class="table table-striped" style="table-layout: fixed; width: 100%;">
                 <p class="border">
+                <thead>
+                    <tr class="d-flex align-center" style="background-color: #FACAC8;">
+                        <th class="mx-auto" style="margin-left: 10px;"><%="投稿id"%></th>
+                        <th class="mx-auto" style="width: 100%;"><%="ユーザー画像"%></th>
+                        <th class="mx-auto" style="width: 100%;"><%="投稿者名"%></th>
+                        <th class="mx-auto" style="width: 100%;"><%="目的地"%></th>
+                        <th class="mx-auto" style="width: 100%;"><%=" "%></th>
+                        <th class="mx-auto" style="width: 100%;"><%=" "%></th>
+                    </tr>
+                </thead>
+         
+            
+            <%@posts.each do |post|%>
                     <tbody>
-                            <tr>
+                            <tr class="d-flex align-center" style="background-color: #FACAC8;">
+                                    <td class="mx-auto" style="margin-left: 10px;"><%=post.id%></th>
                                     <%if post.end_user.profile_image.present? %>
-                                        <td><div class="mx-auto" style="width: 100px;"><%= image_tag post.end_user.profile_image, size: "100x100" %></div></td>
+                                        <td class="mx-auto" style="width: 100%;"><%= image_tag post.end_user.profile_image, size: "100x100" %></th>
                                     <%else%>
-                                        <td><div class="mx-auto" style="width: 100px;"><%= image_tag 'no_image', size: "100x100" %></div></td>
+                                        <td class="mx-auto" style="width: 100%;"><%= image_tag 'no_image', size: "100x100" %></th>
                                     <%end%>
-                                    <td><div class="mx-auto" style="width: 100px;"><%=post.end_user.nickname%></div></td>
-                                    <td><div class="mx-auto" style="width: 100px;"><%=post.id%></div></td>
-                                    <td><div class="mx-auto" style="width: 100px;"><%=post.destination%></div></td>
-                                    <td><div class="mx-auto" style="width: 100px;"><%= link_to "表示",  admin_post_path(post.id) %></div></td>
-                                    <td><div class="mx-auto" style="width: 100px;"><%= link_to "削除",  admin_post_path(post.id),method: :delete %></div></td>
+                                    <td class="mx-auto" style="width: 100%;"><%=post.end_user.nickname%></th>
+                                    <td class="mx-auto" style="width: 100%;"><%=post.destination%></th>
+                                    <td class="mx-auto" style="width: 100%;"><%= link_to "表示",  admin_post_path(post.id) %></th>
+                                    <td class="mx-auto" style="width: 100%;"><%= link_to "削除",  admin_post_path(post.id),method: :delete %></th>
                             </tr>
                     </tbody>
-                </p>
-            </table>
+            </p>
             <%end%>
+            </table>
             <%= paginate @posts%>
         </div>
     </div>

@@ -1,6 +1,6 @@
 class Admin::TagsController < ApplicationController
     def index
-        @tags=Tag.all
+        @tags=Tag.page(params[:page])
     end
     def show
         @tag=Tag.find(params[:id])

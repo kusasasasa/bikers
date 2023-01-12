@@ -1,8 +1,25 @@
-<h1>タグ一覧</h1>
-<%@tags.each do|tag|%>
-
-<i class="fas fa-tag"></i>
-<%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
-<%=link_to "削除", admin_tag_path(tag.id), method: :delete%>
-
-<%end%>
+<div class="container">
+    <div class="row"> 
+        <div class="col-md-11">
+            <h1>タグ一覧</h1>
+            <table class="table table-striped">
+            <p class="border">
+            <tr class="d-flex align-items-center" style="background-color: #FACAC8;">
+                <th style="margin-left: 30px;"><%="id"%></th>
+                <th class="col-xs-8 col-ms-8 col-md-7 col-lg-7"><%="タグ名" %></th>
+            </tr>
+            <%@tags.each do|tag|%>
+                    <tbody>
+                        <tr class="d-flex align-items-center">
+                            <th style="margin-left: 30px;"><%=tag.id%></th>
+                            <th class="col-xs-8 col-ms-8 col-md-7 col-lg-7"><i class="fas fa-tag"></i><%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %></th>
+                            <th class="mx-auto" style="width: 100px;"><%=link_to "削除", admin_tag_path(tag.id), method: :delete%></th>
+                        </tr>
+                    </tbody>
+                </p>
+            <%end%>
+            </table>
+            <%= paginate @tags%>
+        </div>
+    </div>
+</div>
