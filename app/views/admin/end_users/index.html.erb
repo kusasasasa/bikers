@@ -1,13 +1,36 @@
 <h1>ユーザー一覧管理者用</h1>
-<%@end_users.each do |end_user|%>
-    <%=end_user.id%>
-    <%=end_user.nickname%>
-    <%=end_user.age%>
-    <%=end_user.bike_type%>
-    <%if end_user.profile_image.present? %>
-            <%= image_tag end_user.profile_image, size: "100x100" %>
-    <%else%>
-            <%= image_tag 'no_image', size: "100x100" %>
-    <%end%>
-    <%= link_to "表示", admin_end_user_path(end_user.id) %>
-<%end%>
+<div class="container">
+    <div class="row"> 
+        <table class="table table-striped" style="table-layout: fixed; width: 100%;">
+            <p class="border">
+                <thead>
+                    <tr style="background-color: #FACAC8;">
+                        <th><%="ユーザーid"%></th>
+                        <th><%="ニックネイム"%></th>
+                        <th><%="年齢"%></th>
+                        <th><%="バイクの車種"%></th>
+                        <th><%="ユーザー画像"%></th>
+                        <th><%=""%></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%@end_users.each do |end_user|%>
+                    <tr style="background-color: #FACAC8;">
+                            <td><%=end_user.id%></td>
+                            <td><%=end_user.nickname%></td>
+                            <td><%=end_user.age%></td>
+                            <td><%=end_user.bike_type%></td>
+                            <%if end_user.profile_image.present? %>
+                                    <td><%= image_tag end_user.profile_image, size: "100x100" %></td>
+                            <%else%>
+                                    <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <%end%>
+                            <td><%= link_to "表示", admin_end_user_path(end_user.id), class: 'btn btn-sm btn-success' %></td>
+                    </tr>
+                    <%end%> 
+                </tbody>
+            </p>
+        </table>
+        <%= paginate @end_users%>
+    </div>
+</div>
