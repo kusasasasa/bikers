@@ -5,7 +5,6 @@ class Admin::PostsController < ApplicationController
     end
     def show
         @post=Post.find(params[:id])
-        @posts = Post.page(params[:page]).per(10)
         @end_users=EndUser.all
         @age=@post.end_user.age.truncate(-1)
         @post_tags = @post.tags

@@ -1,44 +1,90 @@
 <h1>投稿詳細</h1>
-<h1>投稿詳細</h1>
+
 <div class="container">
   <div class="row"> 
-    <div class="col-lg-9">
-      <%="ユーザー名："%>
-      <%=@post.end_user.nickname%>
-      <%="目的地："%>
-      <%=@post.destination%>
-      <%="感想："%>
-      <%=@post.body%>
-      <%="目的地住所："%>
-      <%=@post.address%>
-      <%="写真："%>
-      <%@post.img_urls.each do |img_url|%>
-      <%= image_tag img_url, size: "100x100" %>
-      <%end%>
-      <%=@age%>代
+    <div class="col-md-9">
+      <font size="4">
+        <div style="line-height: 1;">
+          <%="ユーザー名："%>
+          <%=@post.end_user.nickname%>
+        </div></br>
+      </font>
+      <font size="4">
+        <div style="line-height: 1;">
+          <%="年齢 : "%>
+          <%=@age%>代
+        </div></br>
+      </font>
+      <font size="4">
+        <div style="line-height: 1;">
+          <%="目的地："%>
+          <%=@post.destination%>
+        </div></br>
+      </font>
+      <font size="4">
+        <div style="line-height: 1;">
+          <%="感想："%>
+          <%=@post.body%>
+        </div></br>
+      </font>
+      <font size="4">
+        <div style="line-height: 1;">
+          <%="目的地住所："%>
+          <%=@post.address%>
+        </div></br>
+        
+      </font>
+      <font size="4">
+        <%="写真"%></br>
+        <%@post.img_urls.each do |img_url|%>
+          <%= image_tag img_url, size: "700x500" %></br>
+        <%end%>
+      </font>
     </div>
-    <div class="col-lg-3">
+    <div class="col-md-3">
       <% if @post.tags.present?%>
+        <div><%="タグ"%></div>
         <%@post.tags.each do|tag|%>
-          <div class="text-wrap" style="width: 6rem;">
+          <div class="text-wrap">
             <i class="fas fa-tag"></i>
-            <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
+            <%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
           </div>
         <%end%>
       <%end%>
     </div>
-    <p>コメント件数：<%= @post.comments.count %></p>
-          <% @post.comments.each do |comment| %>
-            <%if comment.end_user.profile_image.present? %>
-              <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
-            <%else%>
-              <%= image_tag 'no_image', size: "100x100" %>
-            <%end%>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-            <%= comment.end_user.nickname %>
-            <%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete %>
-        
-          <% end %>
+    <div class="col-md-12">
+      <div>
+      　<h2>コメント件数：<%= @post.comments.count %></h2>
+            <% @post.comments.each do |comment| %>
+              <p class="border">
+              <%if comment.end_user.profile_image.present? %>
+                <p>
+                  <%= image_tag comment.end_user.profile_image, size: "50x50" %>
+                  <%="コメント送信者 : "%>
+                  <%= comment.end_user.nickname %>
+                </p>
+              <%else%>
+                <p>
+                  <%= image_tag 'no_image', size: "50x50" %>
+                  <%="コメント送信者 : "%>
+                  <%= comment.end_user.nickname %>
+                </p>
+              <%end%>
+              <p>
+                <%="投稿日時 : "%>
+                <%= comment.created_at.strftime('%Y/%m/%d') %>
+              </p>
+              <p>
+                <%="コメント本文 : "%>
+                <%= comment.body %>
+              </p>
+              <p>
+                <%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete , class: 'btn btn-sm btn-danger'%>
+              </p>
+              </p>
+            <% end %>
+      
+      </div>
     </div>
   </div>
 </div>

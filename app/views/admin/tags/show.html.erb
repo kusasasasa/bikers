@@ -1,10 +1,40 @@
 <h1>タグ詳細</h1>
-<%@tag.posts.each do |tag_post|%>
-<%=tag_post.destination%>
-<%if tag_post.img_urls.present?%>
-<%tag_post.img_urls.each do |img|%>
-<%= image_tag img, size: "100x100" %>
-<%end%>
-<%end%>
-   
-<%end%>
+<div class="container">
+    <div class="row"> 
+      
+            <i class="fas fa-tag"></i>
+            <p><%=link_to @tag.name,admin_tag_path(@tag.id)%><%="(#{@tag.posts.count})"%></p>
+        
+        <div class="col-md-12">
+            <table>
+                    <%@tag.posts.each do |tag_post|%>
+                        <div class="border">
+                                    <div style="display: flex;">
+                                        <div><%="投稿id: "%></div>
+                                        <div align="left"><%=tag_post.id%></div>
+                                    </div>
+                                    <div style="display: flex;">
+                                        <div><%="ニックネイム: "%></div>
+                                        <div align="left"><%=tag_post.end_user.nickname%></div>
+                                    </div>
+                                    <div style="display: flex;">
+                                        <div><%="目的地: "%></div>
+                                        <div align="left"><%=tag_post.destination%></div>
+                                    </div style="display: flex;">
+                                    <%if tag_post.img_urls.present?%>
+                                        <div style="display: flex;">
+                                            <div><%="写真: "%></div>
+                                            <%tag_post.img_urls.each do |img|%>
+                                                <div align="left"><%= image_tag img, size: "100x100" %></div>
+                                            <%end%>
+                                        </div>
+                                    <%end%>
+                                    <div>
+                                        <%=link_to "表示",admin_post_path(tag_post.id), class: 'btn btn-sm btn-success' %>
+                                    </div>
+                        </div>
+                    <%end%>
+            </table>
+        </div>
+    </div>
+</div>
