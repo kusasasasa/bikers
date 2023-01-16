@@ -6,6 +6,8 @@ class Public::EndUsersController < ApplicationController
             #年齢を取得し、1の位の値を切り捨てる
             @end_user_age=@end_user.age.truncate(-1)
             @tags=Tag.all
+            @end_user_posts=@end_user.posts.page(params[:page])
+            @num=0
     end
     def show
         #ログイン中のユーザーの値を取得
@@ -21,7 +23,7 @@ class Public::EndUsersController < ApplicationController
         if @end_user.update(end_users_params)
             redirect_to public_end_user_path(@end_user.id)  
         else
-         
+            @end_user=current_end_user
             render:edit
         end
     end

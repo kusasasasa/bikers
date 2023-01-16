@@ -1,16 +1,54 @@
 <h1>管理用ユーザー詳細</h1>
-<%=@end_user.id%>
-<%=@end_user.nickname%>
-<%=@end_user.age%>
-<%=@end_user.bike_type%>
-<%if @end_user.profile_image.present? %>
-    <%= image_tag @end_user.profile_image, size: "100x100" %>
-<%else%>
-    <%= image_tag 'no_image', size: "100x100" %>
-<%end%>
-<%if @end_user.is_deleted==true%>
-<p>退会</p>
-<%else%>
-<p>退会していない</p>
-<%end%>
-<%= link_to "編集画面へ", edit_admin_end_user_path(@end_user.id) %>
+<div class="container">
+    <div class="row"> 
+        <div  class="col-md-6">
+        <table>
+            <tr>
+                <th><%="ユーザーid: "%></th>
+                <td><%=@end_user.id%></td>
+            </tr>
+            <tr>
+                <th><%="ニックネイム: "%></th>
+                <td><%=@end_user.nickname%></td>
+            </tr>
+            <tr>
+                <th><%="email: "%></th>
+                <td><%=@end_user.email%></td>
+            </tr>
+            <tr>
+                <th><%="年齢: "%></th>
+                <td><%=@end_user.age%></td>
+            </tr>
+            <tr>
+                <th><%="バイクの車種: "%></th>
+                <td><%=@end_user.bike_type%></td>
+            </tr>
+            <tr>
+                <th><%="プロフィール画像: "%></th>
+                <%if @end_user.profile_image.present? %>
+                    <td><%= image_tag @end_user.profile_image, size: "100x100" %></td>
+                <%else%>
+                    <td><%= image_tag 'no_image', size: "100x100" %></td>
+                <%end%>
+            </tr>
+            <tr>
+                <th><%="退会プロフィール: "%></th>
+                <%if @end_user.is_deleted==true%>
+                <td>
+                    <font color="red">退会</font>
+                </td>
+                <%else%>
+                <td>
+                    <font color="#00ff00">退会していない</font>
+                </td>
+                <%end%> 
+            </tr>
+        </table>
+        </div>
+        <div  class="col-md-6">
+            <div style="position: absolute; top: 210px;">
+                <%= link_to "編集画面へ", edit_admin_end_user_path(@end_user.id), class: 'btn btn-sm btn-success' %>
+            </div>
+        </div>
+    </div>
+</div>

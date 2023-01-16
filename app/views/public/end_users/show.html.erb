@@ -1,15 +1,54 @@
-<h1>マイページ</h1>
-<%=@end_user.id%>
-<%=@end_user.nickname%>
-<%=@end_user.bike_type%>
-<%if @end_user.profile_image.present? %>
-    <%= image_tag @end_user.profile_image, size: "100x100" %>
-<%else%>
-        <%= image_tag 'no_image', size: "100x100" %>
-<%end%>
-<%=@end_user.age%><%="歳"%>
-<%=@end_user.email%>
-<%= link_to "会員情報編集へ", edit_public_end_user_path %>
-<%= link_to "自分の投稿へ", public_end_users_path %>
-<%= link_to "お気に入り一覧へ", public_end_user_favorite_path %>
-<%= link_to "退会する", public_unsubscribe_path  %>
+<div style="margin: 10px;">
+    <h1>マイページ</h1>
+</div>
+<div class="container">
+    <div style="margin: 90px 0px 200px;">
+        <div class="row">
+            <div class="col-md-9">
+                <table>
+                    <tr>
+                        <th><%="ニックネイム : "%></th>
+                        <td><%=@end_user.nickname%></td>
+                    </tr>
+                    <tr>
+                        <th><%="プロフィール画像 : "%></th>
+                        <%if @end_user.profile_image.present? %>
+                            <td><%= image_tag @end_user.profile_image, size: "100x100" %></td>
+                        <%else%>
+                                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                        <%end%>
+                    </tr>
+                    <tr>
+                        <th><%="年齢 : "%></th>
+                        <td><%=@end_user.age%><%="歳"%></td>
+                    </tr>
+                    <tr>
+                        <th><%="email : "%></th>
+                        <td><%=@end_user.email%></td>
+                    </tr>
+                    <tr>
+                        <th><%="バイクの車種 : "%></th>
+                        <td><%=@end_user.bike_type%></td>
+                    </tr>
+                        
+                </table>
+            </div>
+            <div class="col-md-3">
+                <table>
+                    <tr>
+                        <td><%= link_to "会員情報編集へ", edit_public_end_user_path%></td>
+                    </tr>
+                    <tr>
+                        <td><%= link_to "自分の投稿へ", public_end_users_path %></td>
+                    </tr>
+                    <tr>
+                        <td><%= link_to "お気に入り一覧へ", public_end_user_favorite_path%></td>
+                    </tr>
+                    <tr>
+                        <td><%= link_to "退会する", public_unsubscribe_path%></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

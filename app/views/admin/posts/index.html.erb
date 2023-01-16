@@ -17,7 +17,7 @@
                 <tbody>
                     <%@posts.each do |post|%>
                                 <tr class="d-flex align-center" style="background-color: #FACAC8;">
-                                        <td class="mx-auto" style="width: 100%;"><%=post.id%></th>
+                                        <td class="mx-auto" style="width: 100%;"><%=post.id%></td>
                                         <%if post.end_user.profile_image.present? %>
                                             <td class="mx-auto" style="width: 100%;"><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
                                         <%else%>
