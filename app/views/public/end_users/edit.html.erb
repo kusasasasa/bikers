@@ -1,9 +1,9 @@
 
-<div style="margin: 10px;">
+<div style="margin: 20px;">
   <h1><%=@end_user.nickname%>さんの会員編集画面</h1>
 </div>
 <div class="container">
-  <div style="margin: 90px 0px 200px;">
+  <div style="margin: 90px 0px 300px;">
     <div class="row"> 
         <%= form_with(model: @end_user, url:  public_end_user_path(@end_user.id),local:true,method: :patch) do |f| %>
             <p>ニックネイム</p>

@@ -1,24 +1,57 @@
-<%= form_tag(public_posts_path, :method => "get") do %>
- <%= text_field_tag :search %> 
-<%= submit_tag "Search" ,:destination => nil ,class: "button is-info"%> 
-<% end %> 
-<%= link_to "タグ検索へ", public_tags_path%>
-<h1>投稿一覧です</h1>
-<%@tag_list.slice(-20, 20).each do |list|%>
-<span>
-   <i class="fas fa-tag"></i>
-   <%= link_to list.name, public_tag_path(list.id)%><%="(#{list.posts.count})"%>
-</span>
-<%end%>
-<%@posts.each do |post|%>
-<%if post.end_user.profile_image.present? %>
-    <%= image_tag post.end_user.profile_image, size: "100x100" %>
-<%else%>
-        <%= image_tag 'no_image', size: "100x100" %>
-<%end%>
-<%=post.end_user.nickname%>
-<%=post.id%>
-<%=post.destination%>
-<%= link_to "表示", public_post_path(post.id) %>
-<%end%>
-<%= paginate @posts%>
+<div style="margin: 20px;">
+    <h1>投稿一覧です</h1>
+</div>
+<div class="container">
+    <div class="row">
+            <div class="col-md-8">
+                <table class="table">
+                    <tr>
+                        <th><%="プロフィール画像"%></th>
+                        <th><%="ニックネイム"%></th>
+                        <th><%="目的地"%></th>
+                        <th><%=""%></th>
+                    </tr>
+                    <%@posts.each do |post|%>
+                        <tr>
+                            <%if post.end_user.profile_image.present? %>
+                                <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+                            <%else%>
+                                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <%end%>
+                            <td><%=post.end_user.nickname%></td>
+                            <td><%=post.destination%></td>
+                            <td><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+                        </tr>
+                    <%end%>
+                </table>
+                
+            </div>
+                <div class="col-md-4">
+                    <h4><%="目的地検索"%></h4>
+                    <%= form_tag(public_posts_path, :method => "get") do %>
+                     <%= text_field_tag :search %> 
+                    <%= submit_tag "Search" ,:destination => nil ,class: "button is-info"%> 
+                    <% end %> 
+                    <%= link_to "タグ検索へ", public_tags_path%></br>
+                    </br>
+                    <% if @tags.present?%>
+                        <%@tags.reverse.each do|tag|%>
+                            <%if tag.posts.count>=1%>
+                                <%@num+=1%>
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-tag"></i>
+                                        <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
+                                    </td></br>
+                                </tr>
+                            <%if @num>=10%>
+                                <%break%>
+                            <%end%>
+                            <%end%>
+                        <%end%>
+                    <%end%>
+                </div>
+                
+    </div>
+    <%= paginate @posts%>
+</div>

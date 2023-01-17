@@ -1,26 +1,32 @@
-<div style="margin: 10px;">
+<div style="margin: 20px;">
     <h1>お気に入り一覧</h1>
 </div>
 <div class="container">
-    <div style="margin: 90px 0px 200px;">
         <div class="row">
             <table class="table">
-                <p class="border">
+                
+                <tr>
+                    <th><%="プロフィール画像"%></th>
+                    <th><%="投稿者名"%></th>
+                    <th><%="目的地"%></th>
+                    <th><%="住所"%></th>
+                    <th><%=%></th>
+                </tr>
                 <%@favorite.each do|favorite|%>
                 <tr>
-                    <td><%=favorite.post.destination%></td>
-                    <!--<td><%=@end_users[favorite.post.end_user_id-2].nickname%></td>-->
-                    <td><%=@end_users[favorite.post.end_user_id-1].nickname%></td>
                     <%if favorite.post.img_urls.present?%>
                         <td><%= image_tag favorite.post.img_urls[0], size: "100x100" %></td>
                     <%else%>
                         <td><%= image_tag 'no_image', size: "100x100" %></td>
                     <%end%>
+                    <td><%=favorite.post.end_user.nickname%></td>
+                    <td><%=favorite.post.destination%></td>
+                    <td><%=favorite.post.address%></td>
                     <td><%=link_to "表示", public_post_path(favorite.post.id), class: 'btn btn-sm btn-success' %></td>
                 </tr>
+                
                 <%end%>
             </table>
             <%= paginate @favorite%>
         </div>
-    </div>
 </div>

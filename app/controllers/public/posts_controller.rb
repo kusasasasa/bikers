@@ -3,13 +3,15 @@ class Public::PostsController < ApplicationController
         @post=Post.new
         @end_user=current_end_user
         @tags=Tag.all
+        @num=0
     end
     
     def index
         
-        @tag_list = Tag.all
+        @tags = Tag.all
         @posts=Post.all.search(params[:search]).page(params[:page])
         @end_users=EndUser.all
+        @num=0
     end
     
     def show

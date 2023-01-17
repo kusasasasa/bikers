@@ -1,9 +1,23 @@
-<h1>退会機能</h1>
+<div style="margin: 20px;">
+    <h1>退会機能</h1>
+</div>
 <div class="container">
+    <div style="margin: 90px 60px 350px;">
       <div class="row">
-        <div class="col-md-10">
-         <%= link_to "退会する", public_withdrow_path, method: :patch, data: { confirm: "本当に退会しますか？" } ,class: 'btn-danger' %>
-         <%= link_to "退会しない", root_path,class: 'btn-primary'  %>
+        <div class="col-md-12">
+        <div style="text-align: center;">
+             <font size="6">本当に退会しますか？</br>
+             退会するとお気に入り機能や投稿が使えなくなります。</br>
+             退会する場合は「退会する」をクリックしてください。
+             </font></br>
+         </div>
+         <div style="text-align: center;">
+            <div style="margin: 30px">
+             <%= link_to "退会する", public_withdrow_path, method: :patch, data: { confirm: "本当に退会しますか？" } ,class: 'btn-danger  btn-lg' %>
+             <%= link_to "退会しない", root_path,class: 'btn-primary  btn-lg'  %>
+            </div>
+         </div>
         </div>
       </div>
+    </div>
 </div>
