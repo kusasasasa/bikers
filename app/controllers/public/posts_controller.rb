@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
         @tags=Tag.all
         @comment =Comment.new
         @comments=@post.comments
-        
+        @num=0
     end
     
     def search
@@ -36,12 +36,15 @@ class Public::PostsController < ApplicationController
     def create
         @post= Post.new(post_params)
         @post.end_user_id=current_end_user.id
+        @tags=Tag.all
         tag_list = params[:post][:name].split(nil) 
         if @post.save
     # 4. トップ画面へリダイレクト
             @post.save_tag(tag_list)  
             redirect_to public_end_users_path
         else
+            @post= Post.new(post_params)
+            @num=0
             render :new
         end
     end

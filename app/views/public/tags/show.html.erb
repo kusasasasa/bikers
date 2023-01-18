@@ -1,19 +1,52 @@
-<% if @tags.present?%>
-<%@tags.slice(-20, 20).each do|tag|%>
-<i class="fas fa-tag"></i>
-<%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
-<%end%>
-<%end%>
-<h1><%=@tag.name%>タグ</h1>
-<%@tag.posts.each do |post|%>
-<%if post.end_user.profile_image.present? %>
-    <%= image_tag post.end_user.profile_image, size: "100x100" %>
-<%else%>
-        <%= image_tag 'no_image', size: "100x100" %>
-<%end%>
-<%=post.end_user.nickname%>
-<%=post.address%>
-<%=post.id%>
-<%=post.destination%>
-<%= link_to "表示", public_post_path(post.id) %>
-<%end%>
+<div style="margin-bottom: 310px;">
+    <div style="margin: 20px;">
+    <h1><%=@tag.name%>タグ</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table">
+                    <tr>
+                        <th><%="プロフィール画像"%></th>
+                        <th><%="投稿者名"%></th>
+                        <th><%="目的地"%></th>
+                        <th><%="住所"%></th>
+                        <th><%=%></th>
+                    </tr>
+                    <%@tagpost.each do |post|%>
+                    <tr>
+                        <%if post.end_user.profile_image.present? %>
+                            <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+                        <%else%>
+                            <td><%= image_tag 'no_image', size: "100x100" %></td>
+                        <%end%>
+                        <td><%=post.end_user.nickname%></td>
+                        <td><%=post.destination%></td>
+                        <td><%=post.address%></td>
+                        <td><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+                    </tr>
+                    <%end%>
+                </table>
+                <%= paginate @tagpost%>
+            </div>
+            <div class="col-md-3">
+                <% if @tags.present?%>
+                    <%@tags.reverse.each do|tag|%>
+                        <%if tag.posts.count>=1%>
+                            <%@num+=1%>
+                            <tr>
+                                <td>
+                                    <i class="fas fa-tag"></i>
+                                    <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
+                                </td></br>
+                            </tr>
+                            <%if @num>=10%>
+                                <%break%>
+                            <%end%>
+                        <%end%>
+                    <%end%>
+                <%end%>
+            </div>
+        </div>
+    </div>
+</div>

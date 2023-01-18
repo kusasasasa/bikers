@@ -1,61 +1,75 @@
-<div class="container">
-  <div class="row"> 
-    <div class="col-md-3">
-      <% if @tags.present?%>
-        <%@tags.reverse.each do|tag|%>
-          <%if tag.posts.count>=1%>
-            <%@num+=1%>
-            <tr>
-              <td>
-                <i class="fas fa-tag"></i>
-                <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
-              </td></br>
-            </tr>
-            <%if @num>=10%>
-              <%break%>
+<div style="margin: 5px;">
+  <h1>新規投稿画面</h1>
+</div>
+<div style="margin:60px;">
+  <div class="container">
+    <div class="row"> 
+      <div class="col-md-9">
+        
+        <%= form_with model: @post, url:  public_posts_path do |f| %>
+          <div style="margin-bottom: 40px;">
+            <label><%="目的地 : "%></label>
+            <div style="display: inline-block; text-align: left; position: absolute;  right: 450px;">
+              <%= f.text_field :destination, :size => "30*30"%>
+            </div></br>
+          </div>
+          <div>
+            <label><%="住所 : "%></label>
+            <div style="display: inline-block; text-align: left; position: absolute;  right: 200px;">
+              <%= f.text_field :address, :size => "60*30"%>
+            </div></br>
+          </div>
+          <div style="margin:20px;">
+            <div style="display: inline-block; text-align: left; position: absolute;  right: 370px;">
+            <%= "※スペースを入力することで複数のタグを付けることができます。"%>
+            </div></br>
+            <div style="display: inline-block; text-align: left; position: absolute;  right: 670px;" >
+            <%= "例：音楽 文芸 スポーツ"%>
+          </div>
+          </div></br>
+          <div style="margin-bottom: 40px;">
+            <label><%="タグ : "%></label>
+            <div style="display: inline-block; text-align: left; position: absolute; right: 450px;">
+              <%= f.text_field :name, :size => "30*30"%>
+            </div></br>
+          </div>
+          <div style="margin-bottom: 40px;">
+            <label><%="本文 : "%></label>
+            <div style="display: inline-block; text-align: left; position: absolute;  right: 15px;">
+              <%= f.text_area :body, size: "80x5"%>
+            </div>
+          </div></br>
+          <div id="preview"></div>
+          <!-- file_fieldを追加で表示させるために、divタグを追加 -->
+          <div class="file-upload", style="margin-bottom: 40px ; margin-top: 40px ;">
+            <%= f.file_field :img_urls, accept: "image/*", multiple: true, onchange: 'loadImage(this);'%>
+            
+          </div>
+          <div  style="margin-bottom:40px;">
+            <%= f.submit '編集を保存',class: 'btn-success' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-3">
+        <div style="margin-bottom:40px;">
+          <%= link_to "タグ検索へ", public_tags_path%></br>
+        </div>
+        <% if @tags.present?%>
+          <%@tags.reverse.each do|tag|%>
+            <%if tag.posts.count>=1%>
+              <%@num+=1%>
+              <tr>
+                <td>
+                  <i class="fas fa-tag"></i>
+                  <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
+                </td></br>
+              </tr>
+              <%if @num>=10%>
+                <%break%>
+              <%end%>
             <%end%>
           <%end%>
         <%end%>
-      <%end%>
-      <%= link_to "タグ検索へ", public_tags_path%></br>
-    </div>
-    <div class="col-md-9">
-      <h1>新規投稿画面</h1>
-      <% if @post.errors.any? %>
-        <%= @post.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @post.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
-      
-      <%= form_with model: @post, url:  public_posts_path do |f| %>
-        <div>
-          <%="目的地 : "%>
-          <%= f.text_field :destination%>
-        </div></br>
-        <div>
-          <%="住所 : "%>
-          <%= f.text_field :address%>
-        </div></br>
-        <div>
-          <%="本文 : "%>
-          <%= f.text_field :body%>
-        </div></br>
-        <div>
-          <%="タグ : "%>
-          <%= f.text_field :name%>
-        </div></br>
-        
-        <div id="preview"></div>
-        <!-- file_fieldを追加で表示させるために、divタグを追加 -->
-        <div class="file-upload">
-          <%= f.file_field :img_urls, accept: "image/*", multiple: true, onchange: 'loadImage(this);'%>
-          
-        </div>
-        <%= f.submit '編集を保存',class: 'btn-success' %>
-      <% end %>
       </div>
     </div>
   </div>
