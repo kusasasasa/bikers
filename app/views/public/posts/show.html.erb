@@ -1,79 +1,124 @@
-<% if @tags.present?%>
-    <%@tags.slice(-20, 20) .each do|tag|%>
-        <i class="fas fa-tag"></i>
-        <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
-    <%end%>
-<%end%>
 <h1>投稿詳細</h1>
-
-<%=@post.end_user.nickname%>
-<%=@post.destination%>
-<%=@post.body%>
-<%=@post.address%>
-<%@post.img_urls.each do |img_url|%>
-<%= image_tag img_url, size: "100x100" %>
-<%end%>
-<%=@age%>代
-<% if @post.tags.present?%>
-  <%@post.tags.each do|tag|%>
-    <i class="fas fa-tag"></i>
-    <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
-  <%end%>
-<%end%>
-<% if end_user_signed_in? %>
-    <%if @post.end_user_id==current_end_user.id%>
-        <%= link_to "投稿を編集", edit_public_post_path(@post.id) %>
-    <%end%>
-<%end%>
-<% if end_user_signed_in? %>
-  <% if @post.favorited_by?(current_end_user) %>
-      <p>
-        <%= link_to public_post_favorites_path(@post), method: :delete do %>
-          ♥<%= @post.favorites.count %> いいね
-        <% end %>
-      </p>
-  <%else%>
-      <p>
-        <%= link_to public_post_favorites_path(@post), method: :post do %>
-          ♡<%= @post.favorites.count %> いいね
-        <% end %>
-      </p>
-  <%end%>
-
-  <div>
-    <p>コメント件数：<%= @post.comments.count %></p>
-    <% @post.comments.each do |comment| %>
-      <%if comment.end_user.profile_image.present? %>
-        <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
-      <%else%>
-        <%= image_tag 'no_image', size: "100x100" %>
+<div class="container">
+  <div class="row">
+    <div>
+      <i class="fa-solid fa-circle-xmark"></i>
+    </div>
+    <div class="col-md-9">
+      <table style="border-collapse: separate; border-spacing: 10px;">
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="名前"%></th>
+          <td style="font-size : 20px;"><%=@post.end_user.nickname%></td>
+        </tr>
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="年齢"%></th>
+          <td style="font-size : 20px;"><%=@age%>代</td>
+        </tr>
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="目的地"%></th>
+          <td style="font-size : 20px;"><%=@post.destination%></td>
+        </tr>
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="住所"%></th>
+          <td style="font-size : 20px;"><%=@post.address%></td>
+        </tr>
+        <tr>
+          <% if @post.img_urls.present?%>
+          <tr>
+            <th></th>
+            <td>
+              <%@post.img_urls.each do |img_url|%>
+                <%= image_tag img_url, size: "300x200" %>
+              <%end%>
+            </td>
+          <%end%>
+        </tr>
+        <tr>
+          <th style="font-size : 20px;"><%="感想"%></th>
+        </tr>
+        <tr>
+          <th><%=%></th>
+          <td style="font-size : 20px;"><%=@post.body%></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <% if end_user_signed_in? %>
+        <%if @post.end_user_id==current_end_user.id%>
+            <td style="white-space: nowrap;"><%= link_to "投稿を編集", edit_public_post_path(@post.id), class: 'btn btn-sm btn-success'%></td>
+        <%end%>
+        <% if @post.favorited_by?(current_end_user) %>
+            <p>
+              <%= link_to public_post_favorites_path(@post), method: :delete do %>
+                ♥<%= @post.favorites.count %> いいね
+              <% end %>
+            </p>
+        <%else%>
+            <p>
+              <%= link_to public_post_favorites_path(@post), method: :post do %>
+                ♡<%= @post.favorites.count %> いいね
+              <% end %>
+            </p>
+        <%end%>
       <%end%>
-      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-      <%= comment.end_user.nickname %>
-      <% if comment.end_user.id== current_end_user.id %>
-        <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete %>
-      <% end %>
-    <% end %>
-  </div>
-  <div>
-    <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
-      <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
-    <% end %>
-  </div>
-<%else%>
-  <p>コメント件数：<%= @post.comments.count %></p>
-    <% @post.comments.each do |comment| %>
-      <%if comment.end_user.profile_image.present? %>
-        <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
-      <%else%>
-        <%= image_tag 'no_image', size: "100x100" %>
+      <% if @post.tags.present?%>
+        <%@post.tags.each do|tag|%>
+        <tr>
+          <td>
+            <i class="fas fa-tag"></i>
+            <%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %>
+          </td></br>
+        </tr>
+        <%end%>
       <%end%>
-      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-      <%= comment.end_user.nickname %>
-    <%end%>
-<%end%>
-
+    </div>
+    <div class="col-md-12">
+      <table style="border-collapse: separate; border-spacing: 10px;">
+      <% if end_user_signed_in? %>
+        <tr>
+          <th>コメント件数：<%= @post.comments.count %></th>
+        </tr>
+          <% @post.comments.each do |comment| %>
+            <tr>
+            <%if comment.end_user.profile_image.present? %>
+              <td><%= image_tag comment.end_user.profile_image, size: "50x50" %></td>
+            <%else%>
+              <td><%= image_tag 'no_image', size: "50x50" %><td>
+            <%end%>
+            <td><%= comment.end_user.nickname %></td>
+            <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+            <% if comment.end_user.id== current_end_user.id %>
+            <td>
+        
+              <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete%>
+            </td>
+            <% end %>
+            <tr><td><%= comment.body %></td></tr>
+            </tr>
+          <% end %>
+        <div>
+          <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
+            <%= f.text_area :body, placeholder: "コメントをここに", size: "80x5" %>
+            <%= f.submit "送信する" %>
+          <% end %>
+        </div>
+      <%else%>
+        <p>コメント件数：<%= @post.comments.count %></p>
+          <% @post.comments.each do |comment| %>
+            <%if comment.end_user.profile_image.present? %>
+              <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
+            <%else%>
+              <%= image_tag 'no_image', size: "100x100" %>
+            <%end%>
+            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+            <%= comment.end_user.nickname %>
+          <%end%>
+      <%end%>
+      </table>
+    </div>
+  </div>
+</div>
+    
 
 
 
