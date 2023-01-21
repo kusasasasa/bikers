@@ -6,7 +6,8 @@ class Public::EndUsersController < ApplicationController
             #年齢を取得し、1の位の値を切り捨てる
             @end_user_age=@end_user.age.truncate(-1)
             @tags=Tag.all
-            @end_user_posts=@end_user.posts.page(params[:page])
+            @end_user_posts=Kaminari.paginate_array(@end_user.posts.reverse).page.page(params[:page])
+            
             @num=0
     end
     def show

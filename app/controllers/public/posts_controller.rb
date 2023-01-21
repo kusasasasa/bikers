@@ -9,7 +9,9 @@ class Public::PostsController < ApplicationController
     def index
         
         @tags = Tag.all
-        @posts=Post.all.search(params[:search]).page(params[:page])
+        #@posts_search=Post.all.search(params[:search])
+        @posts=Post.all.search(params[:search]).page(params[:page]).reverse_order
+        #@posts=Kaminari.paginate_array(Post.all.reverse).page.page(params[:page])
         @end_users=EndUser.all
         @num=0
     end

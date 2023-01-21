@@ -8,6 +8,7 @@
                 <table class="table">
                         <thead>
                             <tr>
+                                <th><%="投稿日時"%></th>
                                <th><%="投稿画像"%></th>
                                <th><%="名前"%></th>
                                <th><%="年齢"%></th>
@@ -16,8 +17,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                        
                         <%@end_user_posts.each do |end_user| %>
                             <tr>
+                                <td><%=end_user.created_at.strftime('%Y/%m/%d') %></td>
                                 <%if end_user.img_urls[0].present? %>
                                         
                                         <td><%= image_tag end_user.img_urls[0], size: "100x100" %></td>

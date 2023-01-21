@@ -1,9 +1,6 @@
 <h1>投稿詳細</h1>
 <div class="container">
   <div class="row">
-    <div>
-      <i class="fa-solid fa-circle-xmark"></i>
-    </div>
     <div class="col-md-9">
       <table style="border-collapse: separate; border-spacing: 10px;">
         <tr>
@@ -38,14 +35,14 @@
         </tr>
         <tr>
           <th><%=%></th>
-          <td style="font-size : 20px;"><%=@post.body%></td>
+          <td style="font-size : 20px;"><%=safe_join(@post.body.split("\n"),tag(:br))%></td>
         </tr>
       </table>
     </div>
     <div class="col-md-3">
       <% if end_user_signed_in? %>
         <%if @post.end_user_id==current_end_user.id%>
-            <td style="white-space: nowrap;"><%= link_to "投稿を編集", edit_public_post_path(@post.id), class: 'btn btn-sm btn-success'%></td>
+            <td style="white-space: nowrap;"><%= link_to "投稿を編集", edit_public_post_path(@post.id), class: 'btn btn-sm btn-success',data: {"turbolinks"=>false}%></td>
         <%end%>
         <% if @post.favorited_by?(current_end_user) %>
             <p>
@@ -75,46 +72,39 @@
     <div class="col-md-12">
       <table style="border-collapse: separate; border-spacing: 10px;">
       <% if end_user_signed_in? %>
-        <tr>
-          <th>コメント件数：<%= @post.comments.count %></th>
-        </tr>
-          <% @post.comments.each do |comment| %>
-            <tr>
+          <tr><th>コメント件数：<%= @post.comments.count %></th></tr>
+          <% @post.comments.reverse.each do |comment| %>
             <%if comment.end_user.profile_image.present? %>
-              <td><%= image_tag comment.end_user.profile_image, size: "50x50" %></td>
+              <tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
             <%else%>
-              <td><%= image_tag 'no_image', size: "50x50" %><td>
+              <tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
             <%end%>
-            <td><%= comment.end_user.nickname %></td>
-            <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
             <% if comment.end_user.id== current_end_user.id %>
-            <td>
-        
-              <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete%>
-            </td>
+              <tr><td>
+                <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete%>
+              </td></tr>
             <% end %>
-            <tr><td><%= comment.body %></td></tr>
-            </tr>
+            <tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
           <% end %>
-        <div>
-          <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
-            <%= f.text_area :body, placeholder: "コメントをここに", size: "80x5" %>
-            <%= f.submit "送信する" %>
-          <% end %>
-        </div>
+        </table>
+            <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
+              <%= f.text_area :body, placeholder: "コメントをここに", size: "80x5" %>
+              <%= f.submit "送信する" %>
+            <% end %>
+        
       <%else%>
-        <p>コメント件数：<%= @post.comments.count %></p>
+        <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
           <% @post.comments.each do |comment| %>
             <%if comment.end_user.profile_image.present? %>
-              <p><%= image_tag comment.end_user.profile_image, size: "100x100" %></p>
+              <a><%= image_tag comment.end_user.profile_image, size: "100x100" %></a>
             <%else%>
-              <%= image_tag 'no_image', size: "100x100" %>
+              <a><%= image_tag 'no_image', size: "100x100" %></a>
             <%end%>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-            <%= comment.end_user.nickname %>
+              <tr><td><%= comment.created_at.strftime('%Y/%m/%d') %><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
+              <tr><td><%= comment.end_user.nickname %></td></tr>
           <%end%>
-      <%end%>
       </table>
+      <%end%>
     </div>
   </div>
 </div>

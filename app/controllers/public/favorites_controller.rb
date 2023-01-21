@@ -1,6 +1,6 @@
 class Public::FavoritesController < ApplicationController
     def index
-        @favorite=current_end_user.favorites.page(params[:page])
+        @favorite=current_end_user.favorites.page(params[:page]).reverse_order
         @posts=Post.all
         @end_users=EndUser.all
     end
