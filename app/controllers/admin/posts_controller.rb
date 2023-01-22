@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
     def index
-        @posts=Post.page(params[:page])
+        @posts=Post.page(params[:page]).reverse_order
         @end_users=EndUser.all
     end
     def show

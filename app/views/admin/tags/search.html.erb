@@ -1,0 +1,20 @@
+<div style="margin:10px;">
+<h1>タグ検索</h1>
+</div>
+<div style="margin:20px;">
+    <div class="container">
+        <div class="row">
+            <%= form_tag(admin_search_path, :method => "get") do %>
+             <%= text_field_tag :search %> 
+            <%= submit_tag "Search" ,:name => nil ,class: "button is-info"%> 
+            <% end %> 
+            <%if @tags.present?%>
+                <table class="table">
+                    <%@tags.each do |tag|%>
+                        <tr><td><i class="fas fa-tag"></i><%= link_to tag.name, admin_tag_path(tag.id)%><%="(#{tag.posts.count})"%></td></tr>
+                    <%end%>
+                </table>
+            <%end%>
+        </div>
+    </div>
+</div>

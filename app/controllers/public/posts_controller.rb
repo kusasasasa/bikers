@@ -53,8 +53,7 @@ class Public::PostsController < ApplicationController
     
     def edit
         @post=Post.find(params[:id])
-        # pluckはmapと同じ意味です！！
-        @tag_list=@post.tags.pluck(:name).join(nil)
+        @tag_list=@post.tags.pluck(:name).join(" ")
     end
   
     def update
@@ -67,7 +66,7 @@ class Public::PostsController < ApplicationController
                 relation.delete
             end 
             @post.save_tag(tag_list)
-            redirect_to public_post_path(@post.id), notice: '更新完了しました:)'
+            redirect_to public_post_path(@post.id)
         else 
             render :edit
         end

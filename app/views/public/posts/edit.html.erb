@@ -5,19 +5,19 @@
       <%= form_with(model: @post, url:  public_post_path(@post.id),local:true,method: :patch) do |f| %>
         <tr>
           <th><%="目的地: "%></th>
-          <td><%= f.text_field :destination%></td>
-        </tr>
-        <tr>
-          <th><%="感想: "%></th>
-          <td><%= f.text_field :body%></td>
+          <td><%= f.text_field :destination, :size => "30*30"%></td>
         </tr>
         <tr>
           <th><%="住所: "%></th>
-          <td><%= f.text_field :address%></td>
+          <td ><%= f.text_field :address, :size => "60*30"%></td>
         </tr>
         <tr>
           <th><%="タグ: "%></th>
-          <td><%= f.text_field :name,value: @tag_list%></td>
+          <td><%= f.text_field :name,value: @tag_list, :size => "30*30"%></td>
+        </tr>
+        <tr>
+          <th><%="感想: "%></th>
+          <td><%= f.text_area :body, size: "80x5"%></td>
         </tr>
         <tr>
           <td>

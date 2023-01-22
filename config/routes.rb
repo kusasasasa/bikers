@@ -16,6 +16,7 @@ devise_for :admin, skip: [:passwords] ,controllers: {
       resources :comments, only: [:show, :destroy]
     end
     resources :tags, only: [:index, :show, :destroy]
+    get 'search'=> 'tags#search'
   end
   
   namespace :public do

@@ -1,45 +1,41 @@
+<div style="margin: 20px;">
 <h1>投稿詳細</h1>
-
+</div>
 <div class="container">
   <div class="row"> 
     <div class="col-md-9">
-      <font size="4">
-        <div style="line-height: 1;">
-          <%="ユーザー名："%>
-          <%=@post.end_user.nickname%>
-        </div></br>
-      </font>
-      <font size="4">
-        <div style="line-height: 1;">
-          <%="年齢 : "%>
-          <%=@age%>代
-        </div></br>
-      </font>
-      <font size="4">
-        <div style="line-height: 1;">
-          <%="目的地："%>
-          <%=@post.destination%>
-        </div></br>
-      </font>
-      <font size="4">
-        <div style="line-height: 1;">
-          <%="感想："%>
-          <%=@post.body%>
-        </div></br>
-      </font>
-      <font size="4">
-        <div style="line-height: 1;">
-          <%="目的地住所："%>
-          <%=@post.address%>
-        </div></br>
-        
-      </font>
-      <font size="4">
-        <%="写真"%></br>
-        <%@post.img_urls.each do |img_url|%>
-          <%= image_tag img_url, size: "700x500" %></br>
-        <%end%>
-      </font>
+      <table style="border-collapse: separate; border-spacing: 10px;">
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="名前"%></th>
+          <td style="font-size : 20px;"><%=@post.end_user.nickname%></td>
+        </tr>
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="年齢"%></th>
+          <td style="font-size : 20px;"><%=@age%>代</td>
+        </tr>
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="目的地"%></th>
+          <td style="font-size : 20px;"><%=@post.destination%></td>
+        </tr>
+        <tr>
+          <th style="white-space: nowrap; font-size : 20px;"><%="住所"%></th>
+          <td style="font-size : 20px;"><%=@post.address%></td>
+        </tr>
+        <tr>
+          <th style="font-size : 20px;"><%="感想"%></th>
+          <td style="font-size : 20px;"><%=safe_join(@post.body.split("\n"),tag(:br))%></td>
+        </tr>
+          <% if @post.img_urls.present?%>
+          <tr>
+              <th></th>
+              <td>
+                <%@post.img_urls.each do |img_url|%>
+                  <%= image_tag img_url, size: "300x200" %>
+                <%end%>
+              </td>
+            <%end%>
+          </tr>
+      </table>
     </div>
     <div class="col-md-3">
       <% if @post.tags.present?%>
@@ -53,38 +49,18 @@
       <%end%>
     </div>
     <div class="col-md-12">
-      <div>
-      　<h2>コメント件数：<%= @post.comments.count %></h2>
-            <% @post.comments.each do |comment| %>
-              <p class="border">
-              <%if comment.end_user.profile_image.present? %>
-                <p>
-                  <%= image_tag comment.end_user.profile_image, size: "50x50" %>
-                  <%="コメント送信者 : "%>
-                  <%= comment.end_user.nickname %>
-                </p>
-              <%else%>
-                <p>
-                  <%= image_tag 'no_image', size: "50x50" %>
-                  <%="コメント送信者 : "%>
-                  <%= comment.end_user.nickname %>
-                </p>
-              <%end%>
-              <p>
-                <%="投稿日時 : "%>
-                <%= comment.created_at.strftime('%Y/%m/%d') %>
-              </p>
-              <p>
-                <%="コメント本文 : "%>
-                <%= comment.body %>
-              </p>
-              <p>
-                <%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete , class: 'btn btn-sm btn-danger'%>
-              </p>
-              </p>
-            <% end %>
-      
-      </div>
+      <table style="border-collapse: separate; border-spacing: 10px;">
+      　<tr><td>コメント件数：<%= @post.comments.count %></td></tr>
+          <% @post.comments.each do |comment| %>
+            <%if comment.end_user.profile_image.present? %>
+              <tr><td><%= image_tag comment.end_user.profile_image, size: "100x100" %><%= comment.end_user.nickname %><%= comment.created_at.strftime('%Y/%m/%d') %></td></tr>
+            <%else%>
+              <tr><td><%= image_tag 'no_image', size: "100x100" %><%= comment.end_user.nickname %><%= comment.created_at.strftime('%Y/%m/%d') %></td></tr>
+            <%end%>
+              <tr><td><%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete%></td></tr>
+              <tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
+          <%end%>
+      </table>          
     </div>
   </div>
 </div>

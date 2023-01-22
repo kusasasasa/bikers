@@ -1,8 +1,11 @@
+<div style="margin:20px;">
 <h1>管理用ユーザー詳細</h1>
+</div>
+<div style="margin-bottom:150px; margin-top:40px;">
 <div class="container">
     <div class="row"> 
         <div  class="col-md-6">
-        <table>
+        <table class="table">
             <tr>
                 <th><%="ユーザーid: "%></th>
                 <td><%=@end_user.id%></td>
@@ -46,9 +49,10 @@
         </table>
         </div>
         <div  class="col-md-6">
-            <div style="position: absolute; top: 210px;">
+            <div style="position: absolute; top: 380px;">
                 <%= link_to "編集画面へ", edit_admin_end_user_path(@end_user.id), class: 'btn btn-sm btn-success' %>
             </div>
         </div>
     </div>
+</div>
 </div>

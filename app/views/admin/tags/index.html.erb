@@ -1,24 +1,29 @@
+<div style=margin:10px;>
+<h1>タグ一覧</h1>
+</div>
 <div class="container">
     <div class="row"> 
         <div class="col-md-11">
-            <h1>タグ一覧</h1>
             <table class="table table-striped">
-            
-            <tr class="d-flex align-items-center" style="background-color: #FACAC8;">
-                <th style="margin-left: 30px;"><%="id"%></th>
-                <th class="col-xs-8 col-ms-8 col-md-7 col-lg-7"><%="タグ名" %></th>
-            </tr>
+            <thead>
+                <tr>
+                    <th><%="id"%></th>
+                    <th><%="タグ名" %></th>
+                    <th><%="" %></th>
+                </tr>
+            </thead>
             <%@tags.each do|tag|%>
                     <tbody>
-                        <tr class="d-flex align-items-center">
-                            <th style="margin-left: 30px;"><%=tag.id%></th>
-                            <th class="col-xs-8 col-ms-8 col-md-7 col-lg-7"><i class="fas fa-tag"></i><%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %></th>
-                            <th class="mx-auto" style="width: 100px;"><%=link_to "削除", admin_tag_path(tag.id), method: :delete , class: 'btn btn-sm btn-danger'%></th>
+                        <tr>
+                            <th><%=tag.id%></th>
+                            <th><i class="fas fa-tag"></i><%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %></th>
+                            <th><%=link_to "削除", admin_tag_path(tag.id), method: :delete , class: 'btn btn-sm btn-danger'%></th>
                         </tr>
                     </tbody>
             
             <%end%>
             </table>
+            <%=link_to "タグ検索へ",admin_search_path%></th>
             <%= paginate @tags%>
         </div>
     </div>

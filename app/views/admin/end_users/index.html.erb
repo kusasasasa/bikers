@@ -1,30 +1,30 @@
 <h1>ユーザー一覧管理者用</h1>
 <div class="container">
     <div class="row"> 
-        <table class="table table-striped" style="table-layout: fixed; width: 100%;">
+        <table class="table table-striped">
             <p class="border">
                 <thead>
-                    <tr style="background-color: #FACAC8;">
-                        <th><%="ユーザーid"%></th>
+                    <tr>
+                        <th><%="id"%></th>
+                        <th><%="ユーザー画像"%></th>
                         <th><%="ニックネイム"%></th>
                         <th><%="年齢"%></th>
                         <th><%="バイクの車種"%></th>
-                        <th><%="ユーザー画像"%></th>
                         <th><%=""%></th>
                     </tr>
                 </thead>
                 <tbody>
                     <%@end_users.each do |end_user|%>
-                    <tr style="background-color: #FACAC8;">
+                    <tr>
                             <td><%=end_user.id%></td>
-                            <td><%=end_user.nickname%></td>
-                            <td><%=end_user.age%></td>
-                            <td><%=end_user.bike_type%></td>
                             <%if end_user.profile_image.present? %>
                                     <td><%= image_tag end_user.profile_image, size: "100x100" %></td>
                             <%else%>
                                     <td><%= image_tag 'no_image', size: "100x100" %></td>
                             <%end%>
+                            <td><%=end_user.nickname%></td>
+                            <td><%=end_user.age%></td>
+                            <td><%=end_user.bike_type%></td>
                             <td><%= link_to "表示", admin_end_user_path(end_user.id), class: 'btn btn-sm btn-success' %></td>
                     </tr>
                     <%end%> 

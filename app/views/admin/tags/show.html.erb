@@ -4,41 +4,33 @@
         <i class="fas fa-tag"></i>
         <p><%=link_to @tag.name,admin_tag_path(@tag.id)%><%="(#{@tag.posts.count})"%></p>
         <div class="col-md-12">
-            <table>
-                <div  class="col-md-12">
-                    <%@tag.posts.each do |tag_post|%>
-                        <div class="border">
-                                    <div style="display: flex;">
-                                        <div><%="投稿id: "%></div>
-                                        <div align="left"><%=tag_post.id%></div>
-                                    </div>
-                                    <div style="display: flex;">
-                                        <div><%="ニックネイム: "%></div>
-                                        <div align="left"><%=tag_post.end_user.nickname%></div>
-                                    </div>
-                                    <div style="display: flex;">
-                                        <div><%="目的地: "%></div>
-                                            <div align="left"><%=tag_post.destination%></div>
-                                    </div>
-                                    <%if tag_post.img_urls.present?%>
-                                        <div style="display: flex;">
-                                            <div><%="投稿画像"%></div>
-                                        </div>
-                                        <div style="display: flex;">
-                                            <%tag_post.img_urls.each do |img|%>
-                                                    <div align="left"><%= image_tag img, size: "100x100" %></div>
-                                            <%end%>
-                                        </div>
-                                    <%end%>
-                                    <div style="display: flex; justify-content: flex-end ;">
-                                        <%=link_to "表示",admin_post_path(tag_post.id), class: 'btn btn-sm btn-success' %>
-                                    </div>
-                        </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><%="投稿id"%></th>
+                        <th><%="投稿画像"%></th>
+                        <th><%="ニックネイム"%></th>
+                        <th><%="目的地"%></th>
+                        <th><%=""%></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%@tagpost.each do |tag_post|%>
+                    <tr>
+                        <td><%=tag_post.id%></td>
+                        <% if tag_post.img_urls.present?%>
+                            <td><%= image_tag tag_post.img_urls[0], size: "100x100" %></td>
+                        <%else%>
+                            <td><%= image_tag 'no_image', size: "100x100" %></td>
+                        <%end%>
+                        <td><%=tag_post.end_user.nickname%></td>
+                        <td><%=tag_post.destination%></td>
+                        <td><%=link_to "表示",admin_post_path(tag_post.id), class: 'btn btn-sm btn-success' %></td>
+                    </tr>
                     <%end%>
-                </div>   
-              
-                    
+                </tbody>
             </table>
         </div>
+        <%= paginate @tagpost%>
     </div>
 </div>

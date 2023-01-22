@@ -1,10 +1,16 @@
 class Admin::TagsController < ApplicationController
     def index
-        @tags=Tag.page(params[:page])
+        @tags=Tag.page(params[:page]).reverse_order
     end
     def show
         @tag=Tag.find(params[:id])
         @posts=Post.all
+        @tagpost=@tag.posts.page(params[:page])
+    end
+    def search
+        @tags=Tag.all.search(params[:search])
+        #ページネイションが設定できていないので質問する
+        
     end
     def destroy
         Tag.find(params[:id]).destroy

@@ -1,32 +1,33 @@
 
+<div style="margin: 20px;">
+     <h1>投稿一覧</h1>
+</div>
 <div class="container">
-     <h1 style="margin:20px">投稿一覧</h1>
     <div class="row"> 
-        <table class="table table-striped" style="table-layout: fixed; width: 100%;">
-            <p class="border">
+        <table class="table table-striped">
                 <thead>
-                    <tr class="d-flex align-center" style="background-color: #FACAC8;">
-                        <th class="mx-auto" style="width: 100%;"><%="投稿id"%></th>
-                        <th class="mx-auto" style="width: 100%;"><%="ユーザー画像"%></th>
-                        <th class="mx-auto" style="width: 100%;"><%="投稿者名"%></th>
-                        <th class="mx-auto" style="width: 100%;"><%="目的地"%></th>
-                        <th class="mx-auto" style="width: 100%;"><%=" "%></th>
-                        <th class="mx-auto" style="width: 100%;"><%=" "%></th>
+                    <tr>
+                        <th><%="投稿id"%></th>
+                        <th><%="ユーザー画像"%></th>
+                        <th><%="投稿者名"%></th>
+                        <th><%="目的地"%></th>
+                        <th><%=" "%></th>
+                        <th><%=" "%></th>
                     </tr>
                 </thead>
                 <tbody>
                     <%@posts.each do |post|%>
-                                <tr class="d-flex align-center" style="background-color: #FACAC8;">
-                                        <td class="mx-auto" style="width: 100%;"><%=post.id%></td>
+                                <tr>
+                                        <td><%=post.id%></td>
                                         <%if post.end_user.profile_image.present? %>
-                                            <td class="mx-auto" style="width: 100%;"><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+                                            <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
                                         <%else%>
-                                            <td class="mx-auto" style="width: 100%;"><%= image_tag 'no_image', size: "100x100" %></td>
+                                            <td><%= image_tag 'no_image', size: "100x100" %></td>
                                         <%end%>
-                                        <td class="mx-auto" style="width: 100%;"><%=post.end_user.nickname%></td>
-                                        <td class="mx-auto" style="width: 100%;"><%=post.destination%></td>
-                                        <td class="mx-auto" style="width: 100%;"><%= link_to "表示",  admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
-                                        <td class="mx-auto" style="width: 100%;"><%= link_to "削除",  admin_post_path(post.id),method: :delete , class: 'btn btn-sm btn-danger'%></td>
+                                        <td><%=post.end_user.nickname%></td>
+                                        <td><%=post.destination%></td>
+                                        <td><%= link_to "表示",  admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+                                        <td><%= link_to "削除",  admin_post_path(post.id),method: :delete , class: 'btn btn-sm btn-danger'%></td>
                                 </tr>
                     <%end%>
                 </tbody>
