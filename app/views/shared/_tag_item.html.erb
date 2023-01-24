@@ -1,0 +1,24 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><%="id"%></th>
+            <th><%="タグ名" %></th>
+            <%if admin_signed_in? %>
+                <th><%="" %></th>
+            <% end %>
+        </tr>
+    </thead>
+    <%tags.each do|tag|%>
+    <tbody>
+        <tr>
+            <th><%=tag.id%></th>
+            <%if admin_signed_in? %>
+                <th><i class="fas fa-tag"></i><%=link_to tag.name,admin_tag_path(tag.id)%><%="(#{tag.posts.count})" %></th>
+                <th><%=link_to "削除", admin_tag_path(tag.id), method: :delete , class: 'btn btn-sm btn-danger'%></th>
+            <%else%>
+                <th><i class="fas fa-tag"></i><%=link_to tag.name,public_tag_path(tag.id)%><%="(#{tag.posts.count})" %></th>
+            <% end %>
+        </tr>
+    </tbody>
+    <%end%>
+</table>

@@ -13,7 +13,7 @@
                         <th><%="住所"%></th>
                         <th><%=%></th>
                     </tr>
-                    <%@tagpost.each do |post|%>
+                    <%@tagpost.reverse.each do |post|%>
                     <tr>
                         <%if post.end_user.profile_image.present? %>
                             <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
@@ -31,6 +31,7 @@
             </div>
             <div class="col-md-3">
                 <% if @tags.present?%>
+                    <h3>タグ</h3>
                     <%@tags.reverse.each do|tag|%>
                         <%if tag.posts.count>=1%>
                             <%@num+=1%>

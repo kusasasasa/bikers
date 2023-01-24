@@ -1,6 +1,0 @@
-<h2>投稿一覧</h2> 
-<%@tag_list.each do |list|%>
-<span>
-   <%= link_to list.name, public_tag_path(list.id)%><%="(#{list.posts.count})"%>
-</span>
-<%end%>

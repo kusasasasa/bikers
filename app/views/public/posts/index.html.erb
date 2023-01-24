@@ -5,26 +5,18 @@
     <div class="row">
             <div class="col-md-8">
                 <table class="table">
-                    <tr>
-                        <th><%="投稿日"%></th>
-                        <th><%="プロフィール画像"%></th>
-                        <th><%="ニックネイム"%></th>
-                        <th><%="目的地"%></th>
-                        <th><%=""%></th>
-                    </tr>
-                    <%@posts.each do |post|%>
+                    <thead>
                         <tr>
-                             <td><%=post.created_at.strftime('%Y/%m/%d')%></td>
-                            <%if post.end_user.profile_image.present? %>
-                                <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
-                            <%else%>
-                                <td><%= image_tag 'no_image', size: "100x100" %></td>
-                            <%end%>
-                            <td><%=post.end_user.nickname%></td>
-                            <td><%=post.destination%></td>
-                            <td><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+                            <th><%="投稿日"%></th>
+                            <th><%="プロフィール画像"%></th>
+                            <th><%="ニックネイム"%></th>
+                            <th><%="目的地"%></th>
+                            <th><%=""%></th>
                         </tr>
-                    <%end%>
+                    </thead>
+                    <tbody>
+                    <%= render 'shared/post_item', posts: @posts %>
+                    </tbody>
                 </table>
                 
             </div>
@@ -34,7 +26,8 @@
                      <%= text_field_tag :search %> 
                     <%= submit_tag "Search" ,:destination => nil ,class: "button is-info"%> 
                     <% end %> 
-                    <%= link_to "タグ検索へ", public_tags_path%></br>
+                    <%= link_to "タグ検索へ", public_search_path%></br>
+                    <%= link_to "タグ一覧へ", public_tags_path%></br>
                     </br>
                     <% if @tags.present?%>
                         <%@tags.reverse.each do|tag|%>

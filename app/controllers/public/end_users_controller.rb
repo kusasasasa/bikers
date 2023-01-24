@@ -1,5 +1,5 @@
 class Public::EndUsersController < ApplicationController
-    
+    before_action :authenticate_end_user!, except: [:index, :show]
     def index
             @end_user=current_end_user
             @posts=Post.all

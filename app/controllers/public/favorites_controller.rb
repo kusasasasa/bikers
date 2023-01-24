@@ -1,4 +1,5 @@
 class Public::FavoritesController < ApplicationController
+    before_action :authenticate_end_user!
     def index
         @favorite=current_end_user.favorites.page(params[:page]).reverse_order
         @posts=Post.all

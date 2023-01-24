@@ -7,23 +7,23 @@
       <table style="border-collapse: separate; border-spacing: 10px;">
         <tr>
           <th style="white-space: nowrap; font-size : 20px;"><%="名前"%></th>
-          <td style="font-size : 20px;"><%=@post.end_user.nickname%></td>
+          <td style="word-break : break-all; font-size : 20px;"><%=@post.end_user.nickname%></td>
         </tr>
         <tr>
           <th style="white-space: nowrap; font-size : 20px;"><%="年齢"%></th>
-          <td style="font-size : 20px;"><%=@age%>代</td>
+          <td style="word-break : break-all; font-size : 20px;"><%=@age%>代</td>
         </tr>
         <tr>
           <th style="white-space: nowrap; font-size : 20px;"><%="目的地"%></th>
-          <td style="font-size : 20px;"><%=@post.destination%></td>
+          <td style="word-break : break-all; font-size : 20px;"><%=@post.destination%></td>
         </tr>
         <tr>
           <th style="white-space: nowrap; font-size : 20px;"><%="住所"%></th>
-          <td style="font-size : 20px;"><%=@post.address%></td>
+          <td style="word-break : break-all; font-size : 20px;"><%=@post.address%></td>
         </tr>
         <tr>
           <th style="font-size : 20px;"><%="感想"%></th>
-          <td style="font-size : 20px;"><%=safe_join(@post.body.split("\n"),tag(:br))%></td>
+          <td style="word-break : break-all;　font-size : 20px;"><%=safe_join(@post.body.split("\n"),tag(:br))%></td>
         </tr>
           <% if @post.img_urls.present?%>
           <tr>
@@ -56,7 +56,13 @@
             </p>
         <%end%>
       <%end%>
+      <tr>
+        <td><%= link_to "タグ一覧へ", public_tags_path%></td></br>
+        <td><%=link_to "タグ検索へ",admin_search_path%></td><br>
+      </tr>
+      
       <% if @post.tags.present?%>
+        <h4><%="タグ"%></h4>
         <%@post.tags.each do|tag|%>
         <tr>
           <td>
@@ -65,44 +71,14 @@
           </td></br>
         </tr>
         <%end%>
+        
       <%end%>
     </div>
     <div class="col-md-12">
-      <table style="border-collapse: separate; border-spacing: 10px;">
-      <% if end_user_signed_in? %>
-          <tr><th>コメント件数：<%= @post.comments.count %></th></tr>
-          <% @post.comments.reverse.each do |comment| %>
-            <%if comment.end_user.profile_image.present? %>
-              <tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
-            <%else%>
-              <tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
-            <%end%>
-            <% if comment.end_user.id== current_end_user.id %>
-              <tr><td>
-                <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete%>
-              </td></tr>
-            <% end %>
-            <tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
-          <% end %>
-        </table>
-            <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
-              <%= f.text_area :body, placeholder: "コメントをここに", size: "80x5" %>
-              <%= f.submit "送信する" %>
-            <% end %>
-        
-      <%else%>
-        <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
-          <% @post.comments.each do |comment| %>
-            <%if comment.end_user.profile_image.present? %>
-              <tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
-            <%else%>
-              <tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
-            <%end%>
-              <tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
-          <%end%>
-      </table>
-      <%end%>
+      <%= render 'shared/comment_item', comments: @comments %>
+      
     </div>
+    <%= paginate @comments%>
   </div>
 </div>
     

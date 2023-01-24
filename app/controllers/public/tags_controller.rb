@@ -1,4 +1,7 @@
 class Public::TagsController < ApplicationController
+    def index
+        @tags=Tag.page(params[:page]).reverse_order
+    end
     def show
         @tag=Tag.find(params[:id])
         @posts=Post.all
@@ -7,7 +10,7 @@ class Public::TagsController < ApplicationController
         @num=0
         @tagpost=@tag.posts.page(params[:page])
     end
-    def index
-        @tags=Tag.all.search(params[:search])
+    def search
+        @tags=Tag.all.search(params[:search]).page(params[:page])
     end
 end

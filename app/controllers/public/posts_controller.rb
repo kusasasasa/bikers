@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+    before_action :authenticate_end_user!, except: [:index, :show]
     def new
         @post=Post.new
         @end_user=current_end_user
@@ -24,7 +25,7 @@ class Public::PostsController < ApplicationController
         @post_tags = @post.tags
         @tags=Tag.all
         @comment =Comment.new
-        @comments=@post.comments
+        @comments=@post.comments.page(params[:page]).reverse_order
         @num=0
     end
     
@@ -39,7 +40,8 @@ class Public::PostsController < ApplicationController
         @post= Post.new(post_params)
         @post.end_user_id=current_end_user.id
         @tags=Tag.all
-        tag_list = params[:post][:name].split(nil) 
+        tag_list = params[:post][:name].split(nil)
+        tag_list=tag_list.uniq
         if @post.save
     # 4. トップ画面へリダイレクト
             @post.save_tag(tag_list)  
@@ -59,6 +61,7 @@ class Public::PostsController < ApplicationController
     def update
         @post=Post.find(params[:id])
         tag_list=params[:post][:name].split(nil)
+        tag_list=tag_list.uniq
         if @post.update(post_params)
         # わからん
             @old_relations=PostTagDetail.where(post_id: @post)

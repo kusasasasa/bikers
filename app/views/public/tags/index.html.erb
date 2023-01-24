@@ -1,11 +1,12 @@
-<h1>タグ検索</h1>
-<%= form_tag(public_tags_path, :method => "get") do %>
- <%= text_field_tag :search %> 
-<%= submit_tag "Search" ,:name => nil ,class: "button is-info"%> 
-<% end %> 
-<%if @tags.present?%>
-    <%@tags.each do |tag|%>
-        <i class="fas fa-tag"></i>
-       <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
-    <%end%>
-<%end%>
+<div style=margin:10px;>
+<h1>タグ一覧</h1>
+</div>
+<div class="container">
+    <div class="row"> 
+        <div class="col-md-11">
+            <%= render 'shared/tag_item', tags: @tags %>
+            <%=link_to "タグ検索へ",public_search_path%>
+            <%= paginate @tags%>
+        </div>
+    </div>
+</div>
