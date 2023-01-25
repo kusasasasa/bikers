@@ -9,7 +9,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", maxlength: 30  %>
   </div>
   <div class = "field">
     <%= f.label :age, "年齢" %><br />
@@ -18,7 +18,7 @@
   
   <div class = "field">
     <%= f.label :bike_type, "車種" %><br />
-    <%= f.text_field :bike_type,  size: 5, autofocus: true%>
+    <%= f.text_field :bike_type,  size: 20, autofocus: true, maxlength: 40%>
   </div>
 
   <div class="field">

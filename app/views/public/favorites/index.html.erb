@@ -9,8 +9,8 @@
                 
                 <tr>
                     <th><%="投稿日"%></th>
-                    <th><%="プロフィール画像"%></th>
-                    <th><%="投稿者名"%></th>
+                    <th><%="投稿画像"%></th>
+                    <th><%="投稿者"%></th>
                     <th><%="目的地"%></th>
                     <th><%="住所"%></th>
                     <th><%=%></th>
@@ -26,7 +26,7 @@
                     <td><%=favorite.post.end_user.nickname%></td>
                     <td><%=favorite.post.destination%></td>
                     <td><%=favorite.post.address%></td>
-                    <td><%=link_to "表示", public_post_path(favorite.post.id), class: 'btn btn-sm btn-success' %></td>
+                    <td style="white-space: nowrap"><%=link_to "表示", public_post_path(favorite.post.id), class: 'btn btn-sm btn-success' %></td>
                 </tr>
                 
                 <%end%>

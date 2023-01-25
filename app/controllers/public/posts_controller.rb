@@ -74,6 +74,11 @@ class Public::PostsController < ApplicationController
             render :edit
         end
     end
+    def destroy
+        @post = Post.find(params[:id])
+        @post.destroy
+        redirect_to public_end_users_path
+    end
     
     def favorite
       @posts=Post.all

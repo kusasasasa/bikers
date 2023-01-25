@@ -28,6 +28,7 @@ class Public::EndUsersController < ApplicationController
             render:edit
         end
     end
+    
     def withdrow
         @end_user=current_end_user
         # is_deletedカラムをtrueに変更することにより削除フラグを立てる

@@ -16,7 +16,7 @@
       <% end %>
 
         <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
-          <%= f.text_area :body, placeholder: "コメントをここに", size: "80x5" %>
+          <%= f.text_area :body, placeholder: "コメントをここに 最大150文字", size: "80x4" , maxlength: 150%>
           <%= f.submit "送信する" %>
         <% end %>
   <%elsif admin_signed_in? %>

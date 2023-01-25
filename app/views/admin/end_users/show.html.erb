@@ -7,27 +7,27 @@
         <div  class="col-md-6">
         <table class="table">
             <tr>
-                <th><%="ユーザーid: "%></th>
+                <th style="white-space: nowrap;"><%="ユーザーid: "%></th>
                 <td><%=@end_user.id%></td>
             </tr>
             <tr>
-                <th><%="ニックネイム: "%></th>
+                <th style="white-space: nowrap;"><%="ニックネイム: "%></th>
                 <td><%=@end_user.nickname%></td>
             </tr>
             <tr>
-                <th><%="email: "%></th>
+                <th style="white-space: nowrap;"><%="email: "%></th>
                 <td><%=@end_user.email%></td>
             </tr>
             <tr>
-                <th><%="年齢: "%></th>
+                <th style="white-space: nowrap;"><%="年齢: "%></th>
                 <td><%=@end_user.age%></td>
             </tr>
             <tr>
-                <th><%="バイクの車種: "%></th>
+                <th style="white-space: nowrap;"><%="バイクの車種: "%></th>
                 <td><%=@end_user.bike_type%></td>
             </tr>
             <tr>
-                <th><%="プロフィール画像: "%></th>
+                <th style="white-space: nowrap;"><%="アイコン: "%></th>
                 <%if @end_user.profile_image.present? %>
                     <td><%= image_tag @end_user.profile_image, size: "100x100" %></td>
                 <%else%>
@@ -35,7 +35,7 @@
                 <%end%>
             </tr>
             <tr>
-                <th><%="退会プロフィール: "%></th>
+                <th style="white-space: nowrap;"><%="退会プロフィール: "%></th>
                 <%if @end_user.is_deleted==true%>
                 <td>
                     <font color="red">退会</font>
@@ -49,7 +49,7 @@
         </table>
         </div>
         <div  class="col-md-6">
-            <div style="position: absolute; top: 380px;">
+            <div style="position: absolute; top: 400px;">
                 <%= link_to "編集画面へ", edit_admin_end_user_path(@end_user.id), class: 'btn btn-sm btn-success' %>
             </div>
         </div>

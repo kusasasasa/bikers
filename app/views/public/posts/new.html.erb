@@ -10,13 +10,13 @@
           <div style="margin-bottom: 40px;">
             <label><%="目的地 : "%></label>
             <div style="display: inline-block; text-align: left; position: absolute;  right: 450px;">
-              <%= f.text_field :destination, :size => "30*30"%>
+              <%= f.text_field :destination, :size => "30*30", placeholder: "最大30文字", maxlength: 30%>
             </div></br>
           </div>
           <div>
             <label><%="住所 : "%></label>
             <div style="display: inline-block; text-align: left; position: absolute;  right: 200px;">
-              <%= f.text_field :address, :size => "60*30"%>
+              <%= f.text_field :address, :size => "60*30", placeholder: "最大30文字", maxlength: 30%>
             </div></br>
           </div>
           <div style="margin:20px;">
@@ -30,13 +30,13 @@
           <div style="margin-bottom: 40px;">
             <label><%="タグ : "%></label>
             <div style="display: inline-block; text-align: left; position: absolute; right: 450px;">
-              <%= f.text_field :name, :size => "30*30"%>
+              <%= f.text_field :name, :size => "30*30", placeholder: "最大20文字", maxlength: 20%>
             </div></br>
           </div>
           <div style="margin-bottom: 40px;">
             <label><%="本文 : "%></label>
             <div style="display: inline-block; text-align: left; position: absolute;  right: 15px;">
-              <%= f.text_area :body, size: "80x5"%>
+              <%= f.text_area :body, size: "80x5", placeholder: "最大300文字", maxlength: 300%>
             </div>
           </div></br>
           <div id="preview"></div>

@@ -41,6 +41,7 @@
       <% if end_user_signed_in? %>
         <%if @post.end_user_id==current_end_user.id%>
             <td style="white-space: nowrap;"><%= link_to "投稿を編集", edit_public_post_path(@post.id), class: 'btn btn-sm btn-success'%></td>
+            <td style="white-space: nowrap;"><%= link_to "投稿を削除", public_post_path(@post.id),method: :delete , class: 'btn btn-sm btn-danger'%></td>
         <%end%>
         <% if @post.favorited_by?(current_end_user) %>
             <p>
@@ -58,7 +59,7 @@
       <%end%>
       <tr>
         <td><%= link_to "タグ一覧へ", public_tags_path%></td></br>
-        <td><%=link_to "タグ検索へ",admin_search_path%></td><br>
+        <td><%=link_to "タグ検索へ",public_search_path%></td><br>
       </tr>
       
       <% if @post.tags.present?%>

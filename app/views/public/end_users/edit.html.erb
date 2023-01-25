@@ -7,9 +7,13 @@
     <div class="row"> 
         <%= form_with(model: @end_user, url:  public_end_user_path(@end_user.id),local:true,method: :patch) do |f| %>
             <p>ニックネイム</p>
-            <%= f.text_field :nickname%>
+            <%= f.text_field :nickname,  size: 20, autocomplete: "nickname", maxlength: 10%>
             <p>メールアドレス</p>
-            <%= f.text_field :email, :size => "30*30"%>
+            <%= f.text_field :email, :size => "30*30", placeholder: "最大30文字", maxlength: 30 %>
+            <p>バイクの車種:</p>
+            <%= f.text_field :bike_type,  size: 20, autocomplete: "最大40文字", maxlength: 40%>
+            <p>年齢</p>
+            <%= f.text_field :age, size: 3, placeholder: "最大3文字",   maxlength: 3  %>
             <p>プロフィール画像</p>
             <div id="preview"></div>
             <!-- file_fieldを追加で表示させるために、divタグを追加 -->

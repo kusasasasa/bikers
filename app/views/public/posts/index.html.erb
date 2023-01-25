@@ -8,8 +8,8 @@
                     <thead>
                         <tr>
                             <th><%="投稿日"%></th>
-                            <th><%="プロフィール画像"%></th>
-                            <th><%="ニックネイム"%></th>
+                            <th><%="アイコン"%></th>
+                            <th><%="投稿者名"%></th>
                             <th><%="目的地"%></th>
                             <th><%=""%></th>
                         </tr>
@@ -34,7 +34,7 @@
                             <%if tag.posts.count>=1%>
                                 <%@num+=1%>
                                 <tr>
-                                    <td>
+                                    <td style="word-break : break-all;">
                                         <i class="fas fa-tag"></i>
                                         <%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%>
                                     </td></br>

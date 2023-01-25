@@ -14,6 +14,7 @@
                                <th><%="年齢"%></th>
                                <th><%="目的地"%></th>
                                <th><%=""%></th>
+                               <th><%=""%></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,9 +29,10 @@
                                         <td><%= image_tag 'no_image', size: "100x100" %></td>
                                 <%end%>
                                 <td><%=@end_user.nickname%></td>
-                                <td><%=@end_user_age%>代</td>
+                                <td style="white-space: nowrap"><%=@end_user_age%>代</td>
                                 <td><%=end_user.destination%></td>
-                                <td><%= link_to "表示", public_post_path(end_user.id), class: 'btn btn-sm btn-success' %></td>
+                                <td style="white-space: nowrap"><%= link_to "表示", public_post_path(end_user.id), class: 'btn btn-sm btn-success' %></td>
+                                <td style="white-space: nowrap"><%= link_to "削除", public_post_path(end_user.id),method: :delete , class: 'btn btn-sm btn-danger' %></td>
                             </tr>
                         </tbody>
                         <%end%>
