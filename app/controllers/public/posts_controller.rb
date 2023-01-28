@@ -45,7 +45,7 @@ class Public::PostsController < ApplicationController
         if @post.save
     # 4. トップ画面へリダイレクト
             @post.save_tag(tag_list)  
-            redirect_to public_end_users_path
+            redirect_to public_post_path(@post.id)
         else
             @post= Post.new(post_params)
             @num=0

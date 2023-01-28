@@ -1,7 +1,6 @@
 
 <div style="margin: 20px;">
     <h1>お気に入り一覧</h1>
-    
 </div>
 <div class="container">
         <div class="row">
@@ -17,18 +16,26 @@
                 </tr>
                 <%@favorite.each do|favorite|%>
                 <tr>
-                    <td><%=favorite.post.created_at.strftime('%Y/%m/%d')%></td>
-                    <%if favorite.post.img_urls.present?%>
-                        <td><%= image_tag favorite.post.img_urls[0], size: "100x100" %></td>
+                    <%if favorite.post.end_user.is_deleted==false%>
+                        <td><%=favorite.post.created_at.strftime('%Y/%m/%d')%></td>
+                        <%if favorite.post.img_urls.present?%>
+                            <td><%= image_tag favorite.post.img_urls[0], size: "100x100" %></td>
+                        <%else%>
+                            <td><%= image_tag 'no_image', size: "100x100" %></td>
+                        <%end%>
+                        <td><%=favorite.post.end_user.nickname%></td>
+                        <td><%=favorite.post.destination%></td>
+                        <td><%=favorite.post.address%></td>
+                        <td style="white-space: nowrap"><%=link_to "表示", public_post_path(favorite.post.id), class: 'btn btn-sm btn-success' %></td>
                     <%else%>
+                        <td><%=""%></td>
                         <td><%= image_tag 'no_image', size: "100x100" %></td>
+                        <td><font color="red"><%="退会したユーザーです"%></font></td>
+                        <td><%=""%></td>
+                        <td><%=""%></td>
+                        <td><%=""%></td>
                     <%end%>
-                    <td><%=favorite.post.end_user.nickname%></td>
-                    <td><%=favorite.post.destination%></td>
-                    <td><%=favorite.post.address%></td>
-                    <td style="white-space: nowrap"><%=link_to "表示", public_post_path(favorite.post.id), class: 'btn btn-sm btn-success' %></td>
                 </tr>
-                
                 <%end%>
             </table>
             <%= paginate @favorite%>

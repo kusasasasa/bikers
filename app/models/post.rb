@@ -22,7 +22,7 @@ class Post < ApplicationRecord
         end
     end
     
-   def self.search(search) #self.はUser.を意味する
+   def self.search(search)
          where(['destination LIKE ?', "%#{search}%"]) #検索とuseanameの部分一致を表示。
    end
    def favorited_by?(end_user)

@@ -4,38 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-9">
-      <table style="border-collapse: separate; border-spacing: 10px;">
-        <tr>
-          <th style="white-space: nowrap; font-size : 20px;"><%="名前"%></th>
-          <td style="word-break : break-all; font-size : 20px;"><%=@post.end_user.nickname%></td>
-        </tr>
-        <tr>
-          <th style="white-space: nowrap; font-size : 20px;"><%="年齢"%></th>
-          <td style="word-break : break-all; font-size : 20px;"><%=@age%>代</td>
-        </tr>
-        <tr>
-          <th style="white-space: nowrap; font-size : 20px;"><%="目的地"%></th>
-          <td style="word-break : break-all; font-size : 20px;"><%=@post.destination%></td>
-        </tr>
-        <tr>
-          <th style="white-space: nowrap; font-size : 20px;"><%="住所"%></th>
-          <td style="word-break : break-all; font-size : 20px;"><%=@post.address%></td>
-        </tr>
-        <tr>
-          <th style="font-size : 20px;"><%="感想"%></th>
-          <td style="word-break : break-all;　font-size : 20px;"><%=safe_join(@post.body.split("\n"),tag(:br))%></td>
-        </tr>
-          <% if @post.img_urls.present?%>
-          <tr>
-            <th></th>
-            <td>
-              <%@post.img_urls.each do |img_url|%>
-                <%= image_tag img_url, size: "300x200" %>
-              <%end%>
-            </td>
-          <%end%>
-          </tr>
-      </table>
+      <%= render 'shared/post_show', post: @post %>
     </div>
     <div class="col-md-3">
       <% if end_user_signed_in? %>

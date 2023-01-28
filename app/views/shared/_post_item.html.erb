@@ -1,20 +1,40 @@
 <%posts.each do |post|%>
     <tr>
-        <td><%=post.created_at.strftime('%Y/%m/%d')%></td>
-        <%if post.end_user.profile_image.present? %>
-            <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
-        <%else%>
-            <td><%= image_tag 'no_image', size: "100x100" %></td>
-        <%end%>
-        <td><%=post.end_user.nickname%></td>
-        <td><%=post.destination%></td>
         <% if admin_signed_in? %>
-            <td style="white-space: nowrap"><%= link_to "表示", admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+            <td><%=post.created_at.strftime('%Y/%m/%d')%></td>
+            <%if post.end_user.profile_image.present? %>
+                <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+            <%else%>
+                <td><%= image_tag 'no_image', size: "100x100" %></td>
+            <%end%>
+            <%if post.end_user.is_deleted==false%>
+                <td><%=post.end_user.nickname%></td>
+                <td><%=post.destination%></td>
+                <td style="white-space: nowrap"><%= link_to "表示", admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+                <td style="white-space: nowrap"><%= link_to "削除",  admin_post_path(post.id),method: :delete , class: 'btn btn-sm btn-danger'%></td>
+            <%else%>
+                <td><font color="red"><%=post.end_user.nickname+"(退会したユーザー)"%></font></td>
+                <td><%=post.destination%></td>
+                <td style="white-space: nowrap"><%= link_to "表示", admin_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+                <td style="white-space: nowrap"><%= link_to "削除",  admin_post_path(post.id),method: :delete , class: 'btn btn-sm btn-danger'%></td>
+            <%end%>
         <%else%>
-            <td style="white-space: nowrap"><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
-        <%end%>
-        <% if admin_signed_in? %>
-            <td style="white-space: nowrap"><%= link_to "削除",  admin_post_path(post.id),method: :delete , class: 'btn btn-sm btn-danger'%></td>
+            <%if post.end_user.is_deleted==false%>
+                <td><%=post.created_at.strftime('%Y/%m/%d')%></td>
+                <%if post.end_user.profile_image.present? %>
+                    <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+                <%else%>
+                    <td><%= image_tag 'no_image', size: "100x100" %></td>
+                <%end%>
+                <td><%=post.end_user.nickname%></td>
+                <td><%=post.destination%></td>
+                <td style="white-space: nowrap"><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
+            <%else%>
+                <td><%=""%></td>
+                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                <td><font color="red"><%="退会したユーザーです"%></font></td>
+                <td><%=""%></td>
+            <%end%>
         <%end%>
     </tr>
 <%end%>

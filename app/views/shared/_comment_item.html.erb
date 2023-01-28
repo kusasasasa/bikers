@@ -2,18 +2,27 @@
   <% if end_user_signed_in? %>
       <tr><th>コメント件数：<%= @post.comments.count %></th></tr>
       <% comments.each do |comment| %>
-        <%if comment.end_user.profile_image.present? %>
-          <tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
+        <%if comment.end_user.is_deleted==false%>
+          <%if comment.end_user.profile_image.present? %>
+            <tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
+          <%else%>
+            <tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
+          <%end%>
+          <% if comment.end_user.id== current_end_user.id %>
+            <tr><td>
+              <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete%>
+            </td></tr>
+          <% end %>
+          <tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
         <%else%>
-          <tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
-        <%end%>
-        <% if comment.end_user.id== current_end_user.id %>
-          <tr><td>
-            <%= link_to "削除", public_post_comment_path(comment.post, comment)  ,method: :delete%>
-          </td></tr>
+            <tr>
+              <td><font color="red"><%="退会したユーザー"%></font></td>
+            </tr>
+            <tr>
+              <td><font color="red"><%="コメント非表示"%></font></td>
+            </tr>
         <% end %>
-        <tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
-      <% end %>
+      <%end%>
 
         <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
           <%= f.text_area :body, placeholder: "コメントをここに 最大150文字", size: "80x4" , maxlength: 150%>
@@ -22,6 +31,7 @@
   <%elsif admin_signed_in? %>
         <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
         <% comments.each do |comment| %>
+          <%if comment.end_user.is_deleted==false%>
             <%if comment.end_user.profile_image.present? %>
                 <tr><td><%= image_tag comment.end_user.profile_image, size: "100x100" %><%= comment.end_user.nickname %><%= "       "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
             <%else%>
@@ -29,17 +39,40 @@
             <%end%>
                 <tr><td><%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete%></td></tr>
               　<tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
+          <%else%>
+                  <tr>
+                    <td><font color="red"><%="退会したユーザー"%></font></td>
+                  </tr>
+                  <tr>
+                    <td><font color="red"><%="コメント非表示"%></font></td>
+                  </tr>
+                  <tr>
+                    <td><font color="red"><%=""%></font></td>
+                  </tr>
+                  <tr><td>
+                    <%= link_to "削除", admin_post_comment_path(comment.post, comment)  ,method: :delete%>
+                  </td></tr>
           <%end%>
-    
-  <%else%>
-    <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
-      <% comments.each do |comment| %>
-        <%if comment.end_user.profile_image.present? %>
-          　<tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
-        <%else%>
-          　<tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
         <%end%>
-          　<tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
-      <%end%>
+  <%else%>
+      <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
+        <% comments.each do |comment| %>
+          <%if comment.end_user.is_deleted==false%>
+            <%if comment.end_user.profile_image.present? %>
+              　<tr><td><%= image_tag comment.end_user.profile_image, size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %></td></tr>
+            <%else%>
+              　<tr><td><%= image_tag 'no_image', size: "50x50" %><%= comment.end_user.nickname %><%= "   "+comment.created_at.strftime('%Y/%m/%d') %><td></tr>
+            <%end%>
+              　<tr><td style="word-break: break-all;"><%=safe_join(comment.body.split("\n"),tag(:br))%></td></tr>
+          
+          <%else%>
+                <tr>
+                  <td><font color="red"><%="退会したユーザー"%></font></td>
+                </tr>
+                <tr>
+                  <td><font color="red"><%="コメント非表示"%></font></td>
+                </tr>
+          <%end%>
+        <%end%>
   <%end%>
 </table>

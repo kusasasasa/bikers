@@ -15,15 +15,23 @@
                     </tr>
                     <%@tagpost.reverse.each do |post|%>
                     <tr>
-                        <%if post.end_user.profile_image.present? %>
-                            <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+                        <%if post.end_user.is_deleted==false%>
+                            <%if post.end_user.profile_image.present? %>
+                                <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
+                            <%else%>
+                                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <%end%>
+                            <td><%=post.end_user.nickname%></td>
+                            <td><%=post.destination%></td>
+                            <td><%=post.address%></td>
+                            <td style="white-space: nowrap"><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
                         <%else%>
                             <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <td><font color="red"><%="退会したユーザーです"%></font></td>
+                            <td><%=""%></td>
+                            <td><%=""%></td>
+                            <td><%=""%></td>
                         <%end%>
-                        <td><%=post.end_user.nickname%></td>
-                        <td><%=post.destination%></td>
-                        <td><%=post.address%></td>
-                        <td style="white-space: nowrap"><%= link_to "表示", public_post_path(post.id), class: 'btn btn-sm btn-success' %></td>
                     </tr>
                     <%end%>
                 </table>

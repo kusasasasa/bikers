@@ -5,39 +5,7 @@
   <div class="container">
       <div class="row"> 
         <div class="col-md-12">
-          <table class="table">
-              <%= form_with(model: @end_user, url: admin_end_user_path(@end_user.id), method: :patch) do |f| %>
-              
-                  <tr>
-                    <th><%="ニックネイム: "%></th>  
-                    <td><%= f.text_field :nickname,  size: 20, autocomplete: "nickname", maxlength: 10%></td>
-                  </tr>
-                  <tr>
-                    <th><%="email: "%></th>  
-                    <td><%= f.text_field :email, :size => "30*30", placeholder: "最大30文字", maxlength: 30%></td>
-                  </tr>
-                  <tr>
-                    <th><%="バイクの車種: "%></th>  
-                    <td><%= f.text_field :bike_type,  size: 20, autocomplete: "最大40文字", maxlength: 40%></td>
-                  </tr>
-                  <tr>
-                    <th><%="年齢: "%></th>  
-                    <td><%= f.text_field :age, size: 3, placeholder: "最大3文字",   maxlength: 3 %></td>
-                  </tr>
-                  <tr>
-                    <th><%="会員ステータス: "%></th>  
-                      <td>
-                          <%= f.radio_button :is_deleted, true %>
-                          <%= f.label :is_active, '退会', value: true %>
-                          <%= f.radio_button :is_deleted, false %>
-                          <%= f.label :is_active, '有効', value: false %>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td style="border: none;"><%= f.submit '編集を保存' %></td>
-                  </tr>
-              <%end%>
-          </table>
+          <%= render 'shared/end_user_edit', end_user: @end_user %>
         </div>
       </div>
   </div>

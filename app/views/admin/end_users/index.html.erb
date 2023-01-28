@@ -1,18 +1,21 @@
 <div style="margin: 20px;">
 <h1>ユーザー一覧管理者用</h1>
 </div>
+<div style="margin: 20px;">
+<div><font color="red"><%="※赤文字は退会したユーザーです"%></font></div>
+</div>
 <div class="container">
     <div class="row"> 
         <table class="table table-striped">
             <p class="border">
                 <thead>
                     <tr>
-                        <th><%="id"%></th>
-                        <th><%="アイコン"%></th>
-                        <th><%="投稿者"%></th>
-                        <th><%="年齢"%></th>
-                        <th><%="バイクの車種"%></th>
-                        <th><%=""%></th>
+                        <th style="word-break : break-all;"><%="id"%></th>
+                        <th style="word-break : break-all;"><%="アイコン"%></th>
+                        <th style="word-break : break-all;"><%="投稿者"%></th>
+                        <th style="word-break : break-all;"><%="年齢"%></th>
+                        <th style="word-break : break-all;"><%="バイクの車種"%></th>
+                        <th style="word-break : break-all;"><%=""%></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,10 +27,14 @@
                             <%else%>
                                     <td><%= image_tag 'no_image', size: "100x100" %></td>
                             <%end%>
-                            <td  style="word-break : break-all;"><%=end_user.nickname%></td>
-                            <td  style="word-break : break-all;"><%=end_user.age%></td>
-                            <td  style="word-break : break-all;"><%=end_user.bike_type%></td>
-                            <td  style="word-break : break-all;"><%= link_to "表示", admin_end_user_path(end_user.id), class: 'btn btn-sm btn-success' %></td>
+                            <%if end_user.is_deleted==false%>
+                                <td style="word-break : break-all;"><%=end_user.nickname%></td>
+                            <%else%>
+                                <td style="word-break : break-all;"><font color="red"><%=end_user.nickname%></font></td>
+                            <%end%>
+                            <td style="word-break : break-all;"><%=end_user.age%></td>
+                            <td style="word-break : break-all;"><%=end_user.bike_type%></td>
+                            <td style="word-break : break-all;"><%= link_to "表示", admin_end_user_path(end_user.id), class: 'btn btn-sm btn-success' %></td>
                     </tr>
                     <%end%> 
                 </tbody>

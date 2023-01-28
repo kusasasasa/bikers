@@ -1,0 +1,33 @@
+<div style=margin:10px;>
+<h1>タグ検索</h1>
+</div>
+<div style="margin:20px;">
+    <div class="container">
+        <div class="row">
+            
+            <% if admin_signed_in? %>
+                <%= form_tag(admin_search_path, :method => "get") do %>
+                 <%= text_field_tag :search %> 
+                <%= submit_tag "Search" ,:name => nil ,class: "button is-info"%> 
+                <% end %> 
+            <%else%>
+                <%= form_tag(public_search_path, :method => "get") do %>
+                 <%= text_field_tag :search %> 
+                <%= submit_tag "Search" ,:name => nil ,class: "button is-info"%> 
+                <% end %> 
+            <%end%>
+            <%if tags.present?%>
+                <table class="table">
+                    <%tags.reverse.each do |tag|%>
+                        <% if admin_signed_in? %>
+                        <tr><td><i class="fas fa-tag"></i><%= link_to tag.name, admin_tag_path(tag.id)%><%="(#{tag.posts.count})"%></td></tr>
+                        <%else%>
+                        <tr><td><i class="fas fa-tag"></i><%= link_to tag.name, public_tag_path(tag.id)%><%="(#{tag.posts.count})"%></td></tr>
+                        <%end%>
+                    <%end%>
+                </table>
+            <%end%>
+            <%= paginate @tags%>
+        </div>
+    </div>
+</div>

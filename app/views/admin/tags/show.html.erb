@@ -1,9 +1,7 @@
 <h1 style="padding:10px;">タグ詳細</h1>
 <div class="container">
     <div class="row"> 
-        <i class="fas fa-tag"></i>
-        <p><%=link_to @tag.name,admin_tag_path(@tag.id)%><%="(#{@tag.posts.count})"%></p>
-        <div class="col-md-12">
+        <div class="col-md-9">
             <table class="table">
                 <thead>
                     <tr>
@@ -17,20 +15,38 @@
                 <tbody>
                     <%@tagpost.each do |tag_post|%>
                     <tr>
-                        <td><%=tag_post.id%></td>
-                        <% if tag_post.img_urls.present?%>
-                            <td><%= image_tag tag_post.img_urls[0], size: "100x100" %></td>
+                        <%if tag_post.end_user.is_deleted==false%>
+                            <td><%=tag_post.id%></td>
+                            <% if tag_post.img_urls.present?%>
+                                <td><%= image_tag tag_post.img_urls[0], size: "100x100" %></td>
+                            <%else%>
+                                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <%end%>
+                            <td><%=tag_post.end_user.nickname%></td>
+                            <td><%=tag_post.destination%></td>
+                            <td><%=link_to "表示",admin_post_path(tag_post.id), class: 'btn btn-sm btn-success' %></td>
                         <%else%>
-                            <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <td><%=tag_post.id%></td>
+                            <% if tag_post.img_urls.present?%>
+                                <td><%= image_tag tag_post.img_urls[0], size: "100x100" %></td>
+                            <%else%>
+                                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <%end%>
+                            <td><font color="red"><%=tag_post.end_user.nickname+"(退会したユーザー)"%></font></td>
+                            <td><%=tag_post.destination%></td>
+                            <td><%=link_to "表示",admin_post_path(tag_post.id), class: 'btn btn-sm btn-success' %></td>
                         <%end%>
-                        <td><%=tag_post.end_user.nickname%></td>
-                        <td><%=tag_post.destination%></td>
-                        <td><%=link_to "表示",admin_post_path(tag_post.id), class: 'btn btn-sm btn-success' %></td>
                     </tr>
                     <%end%>
                 </tbody>
             </table>
+            <%= paginate @tagpost%>
         </div>
-        <%= paginate @tagpost%>
+         
+            <div class="col-md-3">
+                <h3>タグ</h3>
+                <tr><td><%=link_to @tag.name,admin_tag_path(@tag.id)%><%="(#{@tag.posts.count})"%></td></tr>
+            </div>
+       
     </div>
 </div>
