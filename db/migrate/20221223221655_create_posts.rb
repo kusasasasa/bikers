@@ -1,7 +1,7 @@
 class CreatePosts < ActiveRecord::Migration[6.1]
   def change
-    create_table :posts do |t|
-      t.bigint :end_user_id,              null: false
+    create_table :posts, id: :integer do |t|
+      t.integer :end_user_id,              null: false
       t.string :destination,          null: false
       t.string :body,          null: false
       t.string :img_url,          null: false
