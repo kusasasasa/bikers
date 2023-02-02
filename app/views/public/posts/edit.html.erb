@@ -1,8 +1,9 @@
 <h1>投稿編集</h1>
 <div class="container">
   <div class="row">
-    <table class="table">
+    
       <%= form_with(model: @post, url:  public_post_path(@post.id),local:true,method: :patch) do |f| %>
+      <table class="table">
         <tr>
           <th><%="目的地: "%></th>
           <td><%= f.text_field :destination, :size => "30*30", placeholder: "最大30文字", maxlength: 30%></td>
@@ -29,8 +30,8 @@
             </div>
           </td>
         </tr>
+      </table>
       <% end %>
-    </table>
   </div>
 </div>
 

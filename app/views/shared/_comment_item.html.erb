@@ -1,5 +1,6 @@
-<table style="border-collapse: separate; border-spacing: 10px;">
+
   <% if end_user_signed_in? %>
+    <table style="border-collapse: separate; border-spacing: 10px;">
       <tr><th>コメント件数：<%= @post.comments.count %></th></tr>
       <% comments.each do |comment| %>
         <%if comment.end_user.is_deleted==false%>
@@ -23,12 +24,14 @@
             </tr>
         <% end %>
       <%end%>
+    </table>
 
         <%= form_with model:[@post, @comment], url: public_post_comments_path(post_id: @post.id) do |f| %>
           <%= f.text_area :body, placeholder: "コメントをここに 最大150文字", size: "80x4" , maxlength: 150%>
           <%= f.submit "送信する" %>
         <% end %>
   <%elsif admin_signed_in? %>
+      <table style="border-collapse: separate; border-spacing: 10px;">
         <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
         <% comments.each do |comment| %>
           <%if comment.end_user.is_deleted==false%>
@@ -54,7 +57,9 @@
                   </td></tr>
           <%end%>
         <%end%>
+      </table>
   <%else%>
+    <table style="border-collapse: separate; border-spacing: 10px;">
       <tr><td>コメント件数：<%= @post.comments.count %></td></tr>
         <% comments.each do |comment| %>
           <%if comment.end_user.is_deleted==false%>
@@ -74,5 +79,5 @@
                 </tr>
           <%end%>
         <%end%>
+    </table>
   <%end%>
-</table>

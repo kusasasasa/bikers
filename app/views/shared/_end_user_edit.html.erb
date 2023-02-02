@@ -1,6 +1,7 @@
-<table class="table">
+
     <%if admin_signed_in? %>
       <%= form_with(model: @end_user, url: admin_end_user_path(@end_user.id), method: :patch) do |f| %>
+      <table class="table">
                   <tr>
                     <th><%="ニックネイム: "%></th>  
                     <td><%= f.text_field :nickname,  size: 20, autocomplete: "nickname", maxlength: 10%></td>
@@ -29,9 +30,11 @@
                    <tr>
                       <td style="border: none;"><%= f.submit '編集を保存' %></td>
                   </tr>
+      </table>
       <%end%>
     <%else%>
       <%= form_with(model: @end_user, url: public_end_user_path(@end_user.id), method: :patch) do |f| %>
+      <table class="table">
                       <tr>
                         <th><%="ニックネイム: "%></th>  
                         <td><%= f.text_field :nickname,  size: 20, autocomplete: "nickname", maxlength: 10%></td>
@@ -61,6 +64,6 @@
                   <tr>
                       <td style="border: none;"><%= f.submit '編集を保存' %></td>
                   </tr>
+      </table>
       <%end%>
     <%end%>
-</table>
