@@ -24,7 +24,7 @@
                 <%if post.end_user.profile_image.present? %>
                     <td><%= image_tag post.end_user.profile_image, size: "100x100" %></td>
                 <%else%>
-                    <td><%= image_tag 'no_image', size: "100x100" %></td>
+                    <td><%= image_tag 'no_image.jpg', size: "100x100" %></td>
                 <%end%>
                 <td><%=post.end_user.nickname%></td>
                 <td><%=post.destination%></td>
