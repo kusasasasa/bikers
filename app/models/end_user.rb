@@ -9,6 +9,7 @@ class EndUser < ApplicationRecord
   has_one_attached :profile_image
   validates :nickname, presence: true
   validates :email, presence: true
+  validates :profile_image, presence: true
   
 
 end
