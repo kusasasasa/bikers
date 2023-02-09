@@ -30,7 +30,7 @@
                             <% if tag_post.img_urls.present?%>
                                 <td><%= image_tag tag_post.img_urls[0], size: "100x100" %></td>
                             <%else%>
-                                <td><%= image_tag 'no_image', size: "100x100" %></td>
+                                <td><%= image_tag 'no_image.jpg', size: "100x100" %></td>
                             <%end%>
                             <td><font color="red"><%=tag_post.end_user.nickname+"(退会したユーザー)"%></font></td>
                             <td><%=tag_post.destination%></td>
