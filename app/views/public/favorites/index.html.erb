@@ -20,7 +20,7 @@
                         <%if favorite.post.img_urls.present?%>
                             <td><%= image_tag favorite.post.img_urls[0], size: "100x100" %></td>
                         <%else%>
-                            <td><%= image_tag 'no_image', size: "100x100" %></td>
+                            <td><%= image_tag 'no_image.jpg', size: "100x100" %></td>
                         <%end%>
                         <td><%=favorite.post.end_user.nickname%></td>
                         <td><%=favorite.post.destination%></td>
