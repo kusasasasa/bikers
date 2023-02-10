@@ -16,7 +16,7 @@
                   </tr>
                   <tr>
                     <th><%="年齢: "%></th>  
-                    <td><%= f.number_field :age, size: 3, placeholder: "最大3文字",   maxlength: 3 %></td>
+                    <td><%= f.number_field :age, size: 3, placeholder: "最大3文字",   maxlength: 3, min:18,max:130 %></td>
                   </tr>
                   <tr>
                     <th><%="会員ステータス: "%></th>  
@@ -49,7 +49,7 @@
                       </tr>
                       <tr>
                         <th><%="年齢: "%></th>  
-                        <td><%= f.number_field :age, size: 3, placeholder: "最大3文字",   maxlength: 3 %></td>
+                        <td><%= f.number_field :age, size: 3, placeholder: "最大3文字",   maxlength: 3, min:18,max:130  %></td>
                       </tr>
                       <tr>
                         <th style="white-space: nowrap"><%="プロフィール画像 "%></th>  
