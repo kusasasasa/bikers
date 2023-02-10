@@ -18,7 +18,7 @@ class Admin::EndUsersController < ApplicationController
             redirect_to admin_end_user_path(end_user.id) 
         else
             
-            render :edit
+            render :new
         end
     end
     private

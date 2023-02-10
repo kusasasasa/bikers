@@ -10,6 +10,6 @@ class EndUser < ApplicationRecord
   validates :nickname, presence: true
   validates :email, presence: true
   validates :profile_image, presence: true
-  
+  validates :age, numericality: { only_integer: true }
 
 end
