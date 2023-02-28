@@ -1,7 +1,7 @@
 
   <% if end_user_signed_in? %>
     <table style="border-collapse: separate; border-spacing: 10px;">
-      <tr><th>コメント件数：<%= @post.comments.count %></th></tr>
+      <tr><th>コメント件数 <%= @post.comments.count %></th></tr>
       <% comments.each do |comment| %>
         <%if comment.end_user.is_deleted==false%>
           <%if comment.end_user.profile_image.present? %>
